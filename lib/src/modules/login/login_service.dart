@@ -1,0 +1,33 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:momento/src/core/controllers/api_controller.dart';
+import 'package:momento/src/core/services/custom_dio.dart';
+import 'package:momento/src/models/user_login_model.dart';
+import 'package:dio/dio.dart';
+import 'package:get/get.dart' as getx;
+
+class LoginService {
+  final CustomDio customDio;
+  LoginService({required this.customDio});
+  Future<Map<String, dynamic>> autenticar(UserLogin userLogin) async {
+    final apiController = getx.Get.find<APIController>();
+    String url = "${apiController.urlBase}login.rule?sys=MOM";
+    Map<String, dynamic> retorno = {};
+    Map<String, dynamic> mapEnvio = {};
+    mapEnvio['username'] = userLogin.username;
+    mapEnvio['password'] = userLogin.password;
+    var body = json.encode(mapEnvio);
+    try {
+      Response response;
+      response = await customDio.post(url, body);
+      if (response.statusCode == 200) {
+        retorno = response.data;
+      }
+    } on DioException catch (e) {
+      debugPrint('Erro ao obter Token: $e');
+      rethrow;
+    }
+    return retorno;
+  }
+}
