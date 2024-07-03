@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:momento/src/modules/home/home_service.dart';
+import 'package:momento/src/core/ui/helpers/messages.dart';
+import 'package:momento/src/modules/cadastrar_biometria/cadastrar_biometria_service.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../core/ui/helpers/messages.dart';
 
-class HomeController extends GetxController {
-  final HomeService homeService;
-  HomeController({required this.homeService});
+class CadastrarBiometriaController extends GetxController { 
+  final CadastrarBiometriaService cadastrarBiometriaService;
+  CadastrarBiometriaController({required this.cadastrarBiometriaService});
+
   var carregando = false.obs;
+  var latitude = 0.0.obs;
+  var longitude = 0.0.obs;
 
-  void cadastrarBiometria() async {
-    
+  var formKey = GlobalKey<FormState>().obs;
+  var carteirinhaController = TextEditingController().obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    verificarPermissoes();
   }
 
   void verificarPermissoes() async {
@@ -38,20 +46,14 @@ class HomeController extends GetxController {
   }
 
   void obterCoordenadas() async {
-    debugPrint('verificaProximidade');
+    debugPrint('obterCoordenadas');
     carregando.value = true;
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     debugPrint('latitude: ${position.latitude}');
     debugPrint('longitude: ${position.longitude}');
-    bool valid = await homeService.sendPosition(
-        latitude: position.latitude, longitude: position.longitude);
-    if (valid) {
-      Messages.exibeMensagemSucesso(
-          titulo: 'Localização verificada', msg: 'Dentro da área de contrato');
-    } else {
-      Messages.exibeMensagemErro('Fora da área de contrato');
-    }
+    latitude.value = position.latitude;
+    longitude.value = position.longitude;   
     carregando.value = false;
   }
 
@@ -83,7 +85,7 @@ class HomeController extends GetxController {
           }
           Get.back();
         },
-        opcaoNao: () {});
+        opcaoNao: () {Get.back();});
   }
 
   void _showPermissionDeniedForeverDialog() {
@@ -97,7 +99,7 @@ class HomeController extends GetxController {
           await launchAppSettings();
           Get.back();
         },
-        opcaoNao: () {});
+       opcaoNao: () {Get.back();});
   }
 
   Future<void> launchAppSettings() async {

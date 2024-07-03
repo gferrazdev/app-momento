@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:momento/src/core/app/app_routes.dart';
 import 'package:momento/src/core/theme/theme_colors.dart';
 import 'package:momento/src/modules/home/home_controller.dart';
 import '../../../core/theme/theme_text_styles.dart';
@@ -18,7 +19,9 @@ class _ButtonCadastrarBiometriaState extends State<ButtonCadastrarBiometria> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.toNamed(AppRoutes.CADASTRAR_BIOMETRIA);
+      },
       child: Align(
         alignment: Alignment.topCenter,
         child: SizedBox(
@@ -55,7 +58,7 @@ class _ButtonCadastrarBiometriaState extends State<ButtonCadastrarBiometria> {
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.only(left: 60.w),
-                    child: Text('Cadastrar Biometria',
+                    child: Text('Cadastrar Biometria Facial',
                         style: ThemeTextStyles.getPurple45BoldStyle),
                   ),
                 ),

@@ -55,7 +55,7 @@ class _ButtonVerificarBiometriaState extends State<ButtonVerificarBiometria> {
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.only(left: 60.w),
-                    child: Text('Verificar Biometria',
+                    child: Text('Verificar Biometria Facial',
                         style: ThemeTextStyles.getPurple45BoldStyle),
                   ),
                 ),
