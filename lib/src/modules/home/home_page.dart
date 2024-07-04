@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:momento/src/core/theme/theme_colors.dart';
-import 'package:momento/src/core/theme/theme_text_styles.dart';
 import 'package:momento/src/modules/home/components/button_cadastrar_biometria.dart';
 import 'package:momento/src/modules/home/components/button_verificar_biometria.dart';
 import 'package:momento/src/modules/home/components/card_prestador.dart';

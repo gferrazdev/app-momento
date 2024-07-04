@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Column(
                       children: [
-                        CustomBannerTop(),
+                        const CustomBannerTop(),
                         SizedBox(height: 150.h),
                         Center(
                           child: Text(
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-              CustomBannerBottom(), // Este widget ficará no final da página
+              const CustomBannerBottom(), // Este widget ficará no final da página
             ],
           ),
         ),

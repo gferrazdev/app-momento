@@ -1,113 +1,85 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:momento/src/core/controllers/gps_controller.dart';
 import 'package:momento/src/core/ui/helpers/messages.dart';
 import 'package:momento/src/modules/cadastrar_biometria/cadastrar_biometria_service.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-class CadastrarBiometriaController extends GetxController { 
+class CadastrarBiometriaController extends GetxController {
   final CadastrarBiometriaService cadastrarBiometriaService;
-  CadastrarBiometriaController({required this.cadastrarBiometriaService});
+  final GPSController gpsController;
+  CadastrarBiometriaController(
+      {required this.gpsController, required this.cadastrarBiometriaService});
 
   var carregando = false.obs;
-  var latitude = 0.0.obs;
-  var longitude = 0.0.obs;
 
   var formKey = GlobalKey<FormState>().obs;
   var carteirinhaController = TextEditingController().obs;
 
+  var base64Image = ''.obs;
+
+  final ImagePicker _picker = ImagePicker();
+
   @override
   void onInit() {
     super.onInit();
-    verificarPermissoes();
-  }
-
-  void verificarPermissoes() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      _showLocationServicesDialog();
-      return;
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        _showPermissionDeniedDialog();
-        return;
-      }
-    }
-    if (permission == LocationPermission.deniedForever) {
-      _showPermissionDeniedForeverDialog();
-      return;
-    }
     obterCoordenadas();
   }
 
-  void obterCoordenadas() async {
-    debugPrint('obterCoordenadas');
-    carregando.value = true;
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    debugPrint('latitude: ${position.latitude}');
-    debugPrint('longitude: ${position.longitude}');
-    latitude.value = position.latitude;
-    longitude.value = position.longitude;   
-    carregando.value = false;
+  Future<void> obterCoordenadas() async {
+    await gpsController.obterCoordenadas();
   }
 
-  void _showLocationServicesDialog() {
-    Messages.exibeDefaultDialog(
-        title: "Serviços de Localização Desativados",
-        middleText: "Por favor, ative os serviços de localização.",
-        onConfirm: "Configurações",
-        onCancel: "Cancelar",
-        opcaoSim: () async {
-          await Geolocator.openLocationSettings();
-          Get.back();
-        },
-        opcaoNao: () {});
-  }
-
-  void _showPermissionDeniedDialog() {
-    Messages.exibeDefaultDialog(
-        title: "Permissão de Localização Negada",
-        middleText:
-            "O aplicativo precisa de permissões de localização para funcionar corretamente.",
-        onConfirm: "Permitir",
-        onCancel: "Cancelar",
-        opcaoSim: () async {
-          LocationPermission permission = await Geolocator.requestPermission();
-          if (permission != LocationPermission.denied &&
-              permission != LocationPermission.deniedForever) {
-            obterCoordenadas();
+  Future<void> enviarDados() async {
+    if (gpsController.latitude.value != 0.0 &&
+        gpsController.longitude.value != 0.0) {
+      await tirarFoto();
+      if (base64Image.value.isNotEmpty) {
+        carregando.value = true;
+        Map<String, dynamic> retorno = {};
+        try {
+          retorno = await cadastrarBiometriaService.cadastrarBiometria(
+              foto: base64Image.value,
+              carteira: carteirinhaController.value.text,
+              latitude: gpsController.latitude.value.toString(),
+              longitude: gpsController.longitude.value.toString());
+          if (retorno['status'] == 'error') {
+            Messages.exibeMensagemErro(retorno['message']);
+          } else {
+            Messages.exibeMensagemSucesso(
+                msg: 'Info', titulo: retorno['message']);
+            Get.back();
           }
-          Get.back();
-        },
-        opcaoNao: () {Get.back();});
-  }
-
-  void _showPermissionDeniedForeverDialog() {
-    Messages.exibeDefaultDialog(
-        title: "Permissão de Localização Permanentemente Negada",
-        middleText:
-            "Por favor, vá até as configurações do aplicativo e permita o acesso à localização.",
-        onConfirm: "Configurações",
-        onCancel: "Cancelar",
-        opcaoSim: () async {
-          await launchAppSettings();
-          Get.back();
-        },
-       opcaoNao: () {Get.back();});
-  }
-
-  Future<void> launchAppSettings() async {
-    final Uri settingsUri = Uri.parse('app-settings:');
-    if (await canLaunchUrl(settingsUri)) {
-      await launchUrl(settingsUri);
+          carregando.value = false;
+        } catch (e) {
+          Messages.exibeMensagemErro('Erro ao enviar a Imagem');
+          carregando.value = false;
+        }
+      } else {
+        Get.snackbar(
+            'Erro', 'Não foi possível obter todas as informações necessárias.');
+      }
     } else {
-      throw 'Could not open app settings';
+      Get.snackbar('Erro', 'Coordenadas GPS não obtidas.');
+    }
+  }
+
+  Future<void> tirarFoto() async {
+    try {
+      final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+
+      if (pickedFile != null) {
+        File image = File(pickedFile.path);
+        List<int> imageBytes = await image.readAsBytes();
+        base64Image.value = base64Encode(imageBytes);
+      } else {
+        Get.snackbar('Erro', 'Nenhuma foto foi tirada.');
+      }
+    } catch (e) {
+      Get.snackbar('Erro', 'Falha ao capturar imagem: $e');
     }
   }
 }

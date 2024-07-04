@@ -6,6 +6,7 @@ class CadastrarBiometriaBindings implements Bindings {
   @override
   void dependencies() {
     Get.put(CadastrarBiometriaService(customDio: Get.find()));
-    Get.put(CadastrarBiometriaController(cadastrarBiometriaService: Get.find())); 
+    Get.put(CadastrarBiometriaController(
+        cadastrarBiometriaService: Get.find(), gpsController: Get.find()));
   }
 }

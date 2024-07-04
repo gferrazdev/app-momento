@@ -4,6 +4,8 @@ import 'package:momento/src/core/theme/theme_colors.dart';
 import 'package:momento/src/core/ui/components/start_clipper.dart';
 
 class CustomBannerTop extends StatelessWidget {
+  const CustomBannerTop({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ClipPath(
@@ -14,7 +16,7 @@ class CustomBannerTop extends StatelessWidget {
           alignment: Alignment.center,
           padding: EdgeInsets.only(bottom: 60.h),
           decoration: BoxDecoration(
-            color: Color(0xfe380e7f),
+            color: ThemeColors.roxoEscuro,
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,

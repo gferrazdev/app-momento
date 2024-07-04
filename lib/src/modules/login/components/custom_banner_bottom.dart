@@ -4,6 +4,8 @@ import 'package:momento/src/core/theme/theme_colors.dart';
 import 'package:momento/src/core/ui/components/strat_clipper_bottom.dart';
 
 class CustomBannerBottom extends StatelessWidget {
+  const CustomBannerBottom({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ClipPath(

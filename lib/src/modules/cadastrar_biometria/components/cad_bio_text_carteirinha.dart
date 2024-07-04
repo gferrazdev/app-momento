@@ -6,14 +6,14 @@ import 'package:momento/src/core/theme/theme_text_styles.dart';
 import 'package:momento/src/modules/cadastrar_biometria/cadastrar_biometria_controller.dart';
 import 'package:validatorless/validatorless.dart';
 
-class LoginTexCarteirinha extends StatefulWidget {
-  const LoginTexCarteirinha({super.key});
+class CadBioTextCarteirinha extends StatefulWidget {
+  const CadBioTextCarteirinha({super.key});
 
   @override
-  State<LoginTexCarteirinha> createState() => _LoginTexCarteirinhaState();
+  State<CadBioTextCarteirinha> createState() => _CadBioTextCarteirinhaState();
 }
 
-class _LoginTexCarteirinhaState extends State<LoginTexCarteirinha> {
+class _CadBioTextCarteirinhaState extends State<CadBioTextCarteirinha> {
   final controller = Get.find<CadastrarBiometriaController>();
   @override
   Widget build(BuildContext context) {
@@ -22,13 +22,10 @@ class _LoginTexCarteirinhaState extends State<LoginTexCarteirinha> {
             width: 800.w,
             height: 200.h,
             child: TextFormField(
-              enabled: true,
-              obscureText: false,
               controller: controller.carteirinhaController.value,
               textAlign: TextAlign.start,
               style: ThemeTextStyles.getBlack45Style,
               keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.next,
               validator:
                   Validatorless.required('O nome do usuário é obrigatório'),
               decoration: InputDecoration(
