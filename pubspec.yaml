@@ -35,7 +35,7 @@ dependencies:
   geolocator:  
   dio_cookie_manager:
   cookie_jar:
-  flutter_screenutil:
+  flutter_screenutil: ^5.9.3
   flutter_dotenv:
   path_provider:
   url_launcher:

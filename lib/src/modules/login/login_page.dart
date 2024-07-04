@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(1200, 1920));
+
     return Scaffold(
       body: Obx(
         () => Form(
