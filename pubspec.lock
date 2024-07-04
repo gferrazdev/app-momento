@@ -9,14 +9,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
-  biopassid_face_liveness_sdk:
-    dependency: "direct main"
-    description:
-      name: biopassid_face_liveness_sdk
-      sha256: "7745d20aff3b9b1b1c7de75837b5a55a37da19f17846948970f544609802d055"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.2"
   boolean_selector:
     dependency: transitive
     description:

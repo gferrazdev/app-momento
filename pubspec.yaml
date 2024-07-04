@@ -41,7 +41,6 @@ dependencies:
   url_launcher:
   validatorless:
   image_picker:
-  biopassid_face_liveness_sdk: ^1.0.2
 
 
   # The following adds the Cupertino Icons font to your application.
