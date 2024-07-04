@@ -3,19 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:momento/src/core/theme/theme_colors.dart';
 import 'package:momento/src/core/theme/theme_text_styles.dart';
-import 'package:momento/src/modules/cadastrar_biometria/cadastrar_biometria_controller.dart';
 import 'package:momento/src/modules/validar_biometria/validar_biometria_controller.dart';
 import 'package:validatorless/validatorless.dart';
 
-class CadastrarBiometriaTextCarteirinha extends StatefulWidget {
-  const CadastrarBiometriaTextCarteirinha({super.key});
+class ValidarBiometriaTextCarteirinha extends StatefulWidget {
+  const ValidarBiometriaTextCarteirinha({super.key});
 
   @override
-  State<CadastrarBiometriaTextCarteirinha> createState() => _CadastrarBiometriaTextCarteirinhaState();
+  State<ValidarBiometriaTextCarteirinha> createState() => _ValidarBiometriaTextCarteirinhaState();
 }
 
-class _CadastrarBiometriaTextCarteirinhaState extends State<CadastrarBiometriaTextCarteirinha> {
-  final controller = Get.find<CadastrarBiometriaController>();
+class _ValidarBiometriaTextCarteirinhaState extends State<ValidarBiometriaTextCarteirinha> {
+  final controller = Get.find<ValidarBiometriaController>();
   @override
   Widget build(BuildContext context) {
     return Obx(() => Align(
@@ -28,7 +27,7 @@ class _CadastrarBiometriaTextCarteirinhaState extends State<CadastrarBiometriaTe
               style: ThemeTextStyles.getBlack45Style,
               keyboardType: TextInputType.text,
               validator:
-                  Validatorless.required('A carteirinha é obrigatória'),
+                  Validatorless.required('O nome do usuário é obrigatório'),
               decoration: InputDecoration(
                 labelText: 'Carteirinha',
                 border: OutlineInputBorder(

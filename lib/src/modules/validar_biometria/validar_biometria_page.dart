@@ -3,19 +3,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:momento/src/core/theme/theme_colors.dart';
 import 'package:momento/src/core/theme/theme_text_styles.dart';
-import 'package:momento/src/modules/cadastrar_biometria/cadastrar_biometria_controller.dart';
-import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_button_enviar.dart';
-import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_text_carteirinha.dart';
+import 'package:momento/src/modules/validar_biometria/components/validar_bio_button_enviar.dart';
+import 'package:momento/src/modules/validar_biometria/components/validar_bio_text_carteirinha.dart';
+import 'package:momento/src/modules/validar_biometria/validar_biometria_controller.dart';
 
-class CadastrarBiometriaPage extends StatefulWidget {
-  const CadastrarBiometriaPage({super.key});
+class ValidarBiometriaPage extends StatefulWidget {
+  const ValidarBiometriaPage({super.key});
 
   @override
-  State<CadastrarBiometriaPage> createState() => _CadastrarBiometriaPageState();
+  State<ValidarBiometriaPage> createState() => _ValidarBiometriaPageState();
 }
 
-class _CadastrarBiometriaPageState extends State<CadastrarBiometriaPage> {
-  final controller = Get.find<CadastrarBiometriaController>();
+class _ValidarBiometriaPageState extends State<ValidarBiometriaPage> {
+  final controller = Get.find<ValidarBiometriaController>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class _CadastrarBiometriaPageState extends State<CadastrarBiometriaPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Cadastrar Biometria Facial',
+            'Validar Biometria Facial',
             style: ThemeTextStyles.getWhite45BoldStyle,
           ),
           leading: IconButton(
@@ -43,9 +43,9 @@ class _CadastrarBiometriaPageState extends State<CadastrarBiometriaPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(height: 250.h),
-                const CadastrarBiometriaTextCarteirinha(),
+                const ValidarBiometriaTextCarteirinha(),
                 SizedBox(height: 50.h),
-                const CadadastrarBiometriaButtonEnviar()
+                const ValidarBiometriaButtonEnviar()
               ],
             ),
           ),

@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-              const CustomBannerBottom(), // Este widget ficará no final da página
+            // Este widget ficará no final da página
             ],
           ),
         ),

@@ -5,18 +5,18 @@ import 'package:momento/src/core/controllers/gps_controller.dart';
 import 'package:momento/src/core/theme/theme_colors.dart';
 import 'package:momento/src/core/theme/theme_text_styles.dart';
 import 'package:momento/src/core/ui/components/widgets.dart';
-import 'package:momento/src/modules/cadastrar_biometria/cadastrar_biometria_controller.dart';
+import 'package:momento/src/modules/validar_biometria/validar_biometria_controller.dart';
 
-class CadadastrarBiometriaButtonEnviar extends StatefulWidget {
-  const CadadastrarBiometriaButtonEnviar({super.key});
+class ValidarBiometriaButtonEnviar extends StatefulWidget {
+  const ValidarBiometriaButtonEnviar({super.key});
 
   @override
-  State<CadadastrarBiometriaButtonEnviar> createState() =>
-      _CadadastrarBiometriaButtonEnviarState();
+  State<ValidarBiometriaButtonEnviar> createState() =>
+      _ValidarBiometriaButtonEnviarState();
 }
 
-class _CadadastrarBiometriaButtonEnviarState extends State<CadadastrarBiometriaButtonEnviar> {
-  final controller = Get.find<CadastrarBiometriaController>();
+class _ValidarBiometriaButtonEnviarState extends State<ValidarBiometriaButtonEnviar> {
+  final controller = Get.find<ValidarBiometriaController>();
   final gpsController = Get.find<GPSController>();
 
   @override

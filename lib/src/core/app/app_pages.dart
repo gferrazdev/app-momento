@@ -5,6 +5,8 @@ import 'package:momento/src/modules/home/home_bindings.dart';
 import 'package:momento/src/modules/home/home_page.dart';
 import 'package:momento/src/modules/login/login_bindings.dart';
 import 'package:momento/src/modules/login/login_page.dart';
+import 'package:momento/src/modules/validar_biometria/validar_biometria_bindings.dart';
+import 'package:momento/src/modules/validar_biometria/validar_biometria_page.dart';
 import 'app_routes.dart';
 
 class AppPages {
@@ -24,6 +26,10 @@ class AppPages {
       page: () => const CadastrarBiometriaPage(),
       binding: CadastrarBiometriaBindings(),
     ),
-    
+    GetPage(
+      name: AppRoutes.VERIFICAR_BIOMETRIA,
+      page: () => const ValidarBiometriaPage(),
+      binding: ValidarBiometriaBindings(),
+    ),
   ];
 }
