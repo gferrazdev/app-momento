@@ -10,7 +10,10 @@ import 'package:get/get.dart' as getx;
 class LoginService {
   final CustomDio customDio;
   LoginService({required this.customDio});
-  Future<Map<String, dynamic>> autenticar(UserLogin userLogin) async {
+  Future<Map<String, dynamic>> autenticar(
+      {required UserLogin userLogin,
+      required String latitude,
+      required String longitude}) async {
     final apiController = getx.Get.find<APIController>();
     String url = "${apiController.urlBase}login.rule?sys=MOM";
     Map<String, dynamic> retorno = {};

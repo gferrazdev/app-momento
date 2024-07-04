@@ -10,10 +10,13 @@ class LoginBindings implements Bindings {
         customDio: Get.find(),
       ),
     );
+   
     Get.put(
       LoginController(
         loginService: Get.find(),
+        gpsController: Get.find(),
       ),
+
     );
   }
 }
