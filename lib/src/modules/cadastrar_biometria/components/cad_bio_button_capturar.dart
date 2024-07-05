@@ -23,7 +23,7 @@ class _CadadastrarBiometriaButtonCapturarState extends State<CadadastrarBiometri
   Widget build(BuildContext context) {
     return Obx(
       () => controller.carregando.value
-          ? SharedWidgets.progressIndicator('Carregando')
+          ? Container()
           : Align(
               child: SizedBox(
                 width: 900.w,

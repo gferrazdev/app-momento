@@ -21,7 +21,7 @@ class _FaceCameraScreenState extends State<FaceCameraScreen> {
   void initState() {
     controller = FaceCameraController(
       autoCapture: true,
-      imageResolution: ImageResolution.high,
+      imageResolution: ImageResolution.medium,
       defaultCameraLens: CameraLens.front,
       performanceMode: FaceDetectorMode.accurate,
       onCapture: (File? image) {
@@ -105,17 +105,20 @@ class _FaceCameraScreenState extends State<FaceCameraScreen> {
                           ),
                         ),
                         onPressed: () {
-                          controller = FaceCameraController(
-                            autoCapture: true,
-                            imageResolution: ImageResolution.high,
-                            defaultCameraLens: CameraLens.front,
-                            performanceMode: FaceDetectorMode.accurate,
-                            onCapture: (File? image) {
-                              if (image != null) {
-                                setState(() {
-                                  _capturedImage = image;
-                                });
+                          setState(() {
+                            _capturedImage = null;
+                          });
+                          SmartFaceCamera(
+                            controller: controller,
+                            messageBuilder: (context, face) {
+                              if (face == null) {
+                                return _message(
+                                    'Fique de frente para o câmera');
                               }
+                              if (!face.wellPositioned) {
+                                return _message('Centralize seu rosto na tela');
+                              }
+                              return const SizedBox.shrink();
                             },
                           );
                         },
