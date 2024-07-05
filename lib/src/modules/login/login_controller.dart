@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:momento/src/core/app/app_routes.dart';
 import 'package:momento/src/core/controllers/api_controller.dart';
 import 'package:momento/src/core/controllers/gps_controller.dart';
+import 'package:momento/src/core/ui/helpers/messages.dart';
 import 'package:momento/src/models/user_login_model.dart';
 import 'package:momento/src/modules/login/login_service.dart';
 
@@ -44,6 +45,8 @@ class LoginController extends GetxController {
         final apiController = Get.find<APIController>();
         apiController.token.value = retorno['token'];
         Get.offAndToNamed(AppRoutes.HOME);
+      } else {
+        Messages.exibeMensagemErro(retorno['message']);
       }
       debugPrint(retorno.toString());
     } else {

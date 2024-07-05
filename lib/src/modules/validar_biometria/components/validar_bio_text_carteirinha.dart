@@ -10,10 +10,12 @@ class ValidarBiometriaTextCarteirinha extends StatefulWidget {
   const ValidarBiometriaTextCarteirinha({super.key});
 
   @override
-  State<ValidarBiometriaTextCarteirinha> createState() => _ValidarBiometriaTextCarteirinhaState();
+  State<ValidarBiometriaTextCarteirinha> createState() =>
+      _ValidarBiometriaTextCarteirinhaState();
 }
 
-class _ValidarBiometriaTextCarteirinhaState extends State<ValidarBiometriaTextCarteirinha> {
+class _ValidarBiometriaTextCarteirinhaState
+    extends State<ValidarBiometriaTextCarteirinha> {
   final controller = Get.find<ValidarBiometriaController>();
   @override
   Widget build(BuildContext context) {
@@ -26,8 +28,12 @@ class _ValidarBiometriaTextCarteirinhaState extends State<ValidarBiometriaTextCa
               textAlign: TextAlign.start,
               style: ThemeTextStyles.getBlack45Style,
               keyboardType: TextInputType.text,
-              validator:
-                  Validatorless.required('O nome do usuário é obrigatório'),
+              validator: Validatorless.multiple(
+                [
+                  Validatorless.min(17, 'Carteirinha deve ter 17 caracteres'),
+                  Validatorless.required('A carteirinha é obrigatória'),
+                ],
+              ),
               decoration: InputDecoration(
                 labelText: 'Carteirinha',
                 border: OutlineInputBorder(

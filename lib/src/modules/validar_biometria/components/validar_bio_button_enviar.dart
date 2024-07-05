@@ -15,7 +15,8 @@ class ValidarBiometriaButtonEnviar extends StatefulWidget {
       _ValidarBiometriaButtonEnviarState();
 }
 
-class _ValidarBiometriaButtonEnviarState extends State<ValidarBiometriaButtonEnviar> {
+class _ValidarBiometriaButtonEnviarState
+    extends State<ValidarBiometriaButtonEnviar> {
   final controller = Get.find<ValidarBiometriaController>();
   final gpsController = Get.find<GPSController>();
 
@@ -33,11 +34,13 @@ class _ValidarBiometriaButtonEnviarState extends State<ValidarBiometriaButtonEnv
                     elevation: 10,
                     backgroundColor: ThemeColors.roxoPadrao,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(120.h),
+                      borderRadius: BorderRadius.circular(15.h),
                     ),
                   ),
                   onPressed: () async {
-                    await controller.enviarDados();
+                    if (controller.formKey.value.currentState!.validate()) {
+                      await controller.enviarDados();
+                    }
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -59,7 +62,7 @@ class _ValidarBiometriaButtonEnviarState extends State<ValidarBiometriaButtonEnv
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Text(
-                            "Capturar Imagem e Enviar",
+                            "Enviar Foto",
                             style: ThemeTextStyles.getWhite45BoldStyle,
                           ),
                         ),
