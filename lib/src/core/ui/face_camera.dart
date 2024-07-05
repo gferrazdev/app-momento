@@ -21,7 +21,7 @@ class _FaceCameraScreenState extends State<FaceCameraScreen> {
   void initState() {
     controller = FaceCameraController(
       autoCapture: true,
-      imageResolution: ImageResolution.medium,
+      imageResolution: ImageResolution.high,
       defaultCameraLens: CameraLens.front,
       performanceMode: FaceDetectorMode.accurate,
       onCapture: (File? image) {
