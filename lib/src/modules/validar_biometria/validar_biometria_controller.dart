@@ -22,7 +22,6 @@ class ValidarBiometriaController extends GetxController {
 
   var base64Image = ''.obs;
 
-
   @override
   void onInit() {
     super.onInit();
@@ -52,9 +51,9 @@ class ValidarBiometriaController extends GetxController {
           if (retorno['status'] == 'error') {
             Messages.exibeMensagemErro(retorno['message']);
           } else {
+            Get.back();
             Messages.exibeMensagemSucesso(
                 msg: 'Info', titulo: retorno['message']);
-            Get.back();
           }
           carregando.value = false;
         } catch (e) {

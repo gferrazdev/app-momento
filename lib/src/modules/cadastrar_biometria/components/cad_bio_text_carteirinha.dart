@@ -31,6 +31,7 @@ class _CadastrarBiometriaTextCarteirinhaState
               validator: Validatorless.multiple(
                 [
                   Validatorless.min(17,'Carteirinha deve ter 17 caracteres'),
+                  Validatorless.max(17,'Carteirinha deve ter 17 caracteres'),
                   Validatorless.required('A carteirinha é obrigatória'),
                 ],
               ),
