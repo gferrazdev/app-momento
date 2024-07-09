@@ -15,7 +15,8 @@ class CadastrarBiometriaService {
       required String latitude,
       required String longitude}) async {
     final apiController = getx.Get.find<APIController>();
-    String url = "${apiController.urlBase}cadastrarFoto.rule?sys=MOM";
+    String url =
+        "${apiController.urlBase}cadastrarBiometriaFacial.rule?sys=MOM";
     Map<String, dynamic> retorno = {};
     Map<String, dynamic> mapEnvio = {};
     mapEnvio['carteiraBeneficiario'] = carteira;
@@ -32,9 +33,7 @@ class CadastrarBiometriaService {
       Response response;
       response = await customDio.post(url, body);
       debugPrint(response.data.toString());
-      if (response.statusCode == 200) {
-        retorno = response.data;
-      }
+      retorno = response.data;
     } on DioException catch (e) {
       debugPrint('Erro ao cadastrar foto: $e');
       rethrow;

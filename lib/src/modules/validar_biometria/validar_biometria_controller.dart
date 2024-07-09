@@ -53,7 +53,7 @@ class ValidarBiometriaController extends GetxController {
           } else {
             Get.back();
             Messages.exibeMensagemSucesso(
-                msg: 'Info', titulo: retorno['message']);
+                msg: retorno['message'], titulo: 'Validação Biométrica');
           }
           carregando.value = false;
         } catch (e) {

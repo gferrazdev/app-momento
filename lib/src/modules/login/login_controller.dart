@@ -35,20 +35,26 @@ class LoginController extends GetxController {
         username: userNameController.value.text,
         password: passwordController.value.text,
       );
-      Map<String, dynamic> retorno = {};
-      retorno = await loginService.autenticar(
-          userLogin: userLogin,
-          latitude: gpsController.latitude.value.toString(),
-          longitude: gpsController.longitude.value.toString());
-      carregando.value = false;
-      if (retorno.containsKey('token')) {
-        final apiController = Get.find<APIController>();
-        apiController.token.value = retorno['token'];
-        Get.offAndToNamed(AppRoutes.HOME);
-      } else {
-        Messages.exibeMensagemErro(retorno['message']);
+      try {
+        Map<String, dynamic> retorno = {};
+        retorno = await loginService.autenticar(
+            userLogin: userLogin,
+            latitude: gpsController.latitude.value.toString(),
+            longitude: gpsController.longitude.value.toString());
+        carregando.value = false;
+        if (retorno.containsKey('token')) {
+          final apiController = Get.find<APIController>();
+          apiController.token.value = retorno['token'];
+          Get.offAndToNamed(AppRoutes.HOME);
+        } else {
+          Messages.exibeMensagemErro(retorno['message']);
+        }
+        debugPrint(retorno.toString());
+      } catch (e) {
+        Messages.exibeMensagemErro('Erro ao autenticar.');
+        carregando.value = false;
+        debugPrint(e.toString());
       }
-      debugPrint(retorno.toString());
     } else {
       Get.snackbar('Erro', 'Coordenadas GPS não obtidas.');
     }

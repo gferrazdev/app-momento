@@ -48,17 +48,19 @@ class CadastrarBiometriaController extends GetxController {
               carteira: carteirinhaController.value.text,
               latitude: gpsController.latitude.value.toString(),
               longitude: gpsController.longitude.value.toString());
+          debugPrint(retorno.toString());
           if (retorno['status'] == 'error') {
             Messages.exibeMensagemErro(retorno['message']);
           } else {
             Get.back();
             Messages.exibeMensagemSucesso(
-                msg: 'Info', titulo: retorno['message']);
+                msg: retorno['message'], titulo: 'Cadastro Biométrico');
           }
           carregando.value = false;
         } catch (e) {
           Messages.exibeMensagemErro('Erro ao enviar a Imagem');
           carregando.value = false;
+          debugPrint(e.toString());
         }
       } else {
         Messages.exibeMensagemErro('Coordenadas GPS não obtidas.');

@@ -15,7 +15,8 @@ class ValidarBiometriaButtonCapturar extends StatefulWidget {
       _ValidarBiometriaButtonCapturarState();
 }
 
-class _ValidarBiometriaButtonCapturarState extends State<ValidarBiometriaButtonCapturar> {
+class _ValidarBiometriaButtonCapturarState
+    extends State<ValidarBiometriaButtonCapturar> {
   final controller = Get.find<ValidarBiometriaController>();
   final gpsController = Get.find<GPSController>();
 
@@ -23,7 +24,7 @@ class _ValidarBiometriaButtonCapturarState extends State<ValidarBiometriaButtonC
   Widget build(BuildContext context) {
     return Obx(
       () => controller.carregando.value
-          ? SharedWidgets.progressIndicator('Carregando')
+          ? Container()
           : Align(
               child: SizedBox(
                 width: 900.w,

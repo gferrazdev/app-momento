@@ -23,14 +23,14 @@ class LoginService {
     mapEnvio['latitude'] = latitude;
     mapEnvio['longitude'] = longitude;
     var body = json.encode(mapEnvio);
+
     try {
       Response response;
       response = await customDio.post(url, body);
       debugPrint(response.data.toString());
-      debugPrint(response.statusCode.toString());
       retorno = response.data;
     } on DioException catch (e) {
-      debugPrint('Erro ao obter Token: $e');
+      debugPrint('Erro ao realizar login: $e');
       rethrow;
     }
     return retorno;

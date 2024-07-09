@@ -21,7 +21,7 @@ class _ValidarBiometriaTextCarteirinhaState
   Widget build(BuildContext context) {
     return Obx(() => Align(
           child: SizedBox(
-            width: 800.w,
+            width: 900.w,
             height: 200.h,
             child: TextFormField(
               controller: controller.carteirinhaController.value,
