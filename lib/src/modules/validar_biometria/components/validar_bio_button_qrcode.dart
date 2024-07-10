@@ -1,21 +1,24 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:momento/src/core/controllers/gps_controller.dart';
 import 'package:momento/src/core/theme/theme_colors.dart';
 import 'package:momento/src/core/theme/theme_text_styles.dart';
-import 'package:momento/src/modules/cadastrar_biometria/cadastrar_biometria_controller.dart';
-
-class CadadastrarBiometriaButtonCapturar extends StatefulWidget {
-  const CadadastrarBiometriaButtonCapturar({super.key});
+import 'package:momento/src/modules/validar_biometria/validar_biometria_controller.dart';
+class ValidarBiometriaButtonQRCode extends StatefulWidget {
+  const ValidarBiometriaButtonQRCode({super.key});
 
   @override
-  State<CadadastrarBiometriaButtonCapturar> createState() =>
-      _CadadastrarBiometriaButtonCapturarState();
+  State<ValidarBiometriaButtonQRCode> createState() =>
+      _ValidarBiometriaButtonQRCodeState();
 }
 
-class _CadadastrarBiometriaButtonCapturarState extends State<CadadastrarBiometriaButtonCapturar> {
-  final controller = Get.find<CadastrarBiometriaController>();
+class _ValidarBiometriaButtonQRCodeState
+    extends State<ValidarBiometriaButtonQRCode> {
+  final controller = Get.find<ValidarBiometriaController>();
   final gpsController = Get.find<GPSController>();
 
   @override
@@ -36,7 +39,15 @@ class _CadadastrarBiometriaButtonCapturarState extends State<CadadastrarBiometri
                     ),
                   ),
                   onPressed: () async {
-                    await controller.tirarFoto();
+                    debugPrint('ler QRCode');
+                    String qrCode = await FlutterBarcodeScanner.scanBarcode(
+                        '#2A99CF', 'Cancelar', true, ScanMode.QR);
+                    if (!mounted) return;
+                    debugPrint(qrCode);
+                    Map<String, dynamic> retorno = {};
+                    retorno = jsonDecode(qrCode);
+                    controller.cdSolicitacao.value = retorno['cdSolicitacao'];  
+                    controller.solicitacaoController.value.text = retorno['cdSolicitacao'];  
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -45,7 +56,7 @@ class _CadadastrarBiometriaButtonCapturarState extends State<CadadastrarBiometri
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Icon(
-                            Icons.camera_alt_outlined,
+                            Icons.qr_code,
                             color: Colors.white,
                             size: 70.h,
                           ),
@@ -58,7 +69,7 @@ class _CadadastrarBiometriaButtonCapturarState extends State<CadadastrarBiometri
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Text(
-                            "Capturar Foto",
+                            "Ler QR Code",
                             style: ThemeTextStyles.getWhite45BoldStyle,
                           ),
                         ),

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:momento/src/core/controllers/gps_controller.dart';
@@ -18,8 +17,8 @@ class ValidarBiometriaController extends GetxController {
   var carregando = false.obs;
 
   var formKey = GlobalKey<FormState>().obs;
-  var carteirinhaController = TextEditingController().obs;
-
+  var solicitacaoController = TextEditingController().obs;
+  var cdSolicitacao = ''.obs;
   var base64Image = ''.obs;
 
   @override
@@ -45,7 +44,7 @@ class ValidarBiometriaController extends GetxController {
         try {
           retorno = await validarBiometriaService.validarBiometria(
               foto: base64Image.value,
-              carteira: carteirinhaController.value.text,
+              solicitacao: solicitacaoController.value.text,
               latitude: gpsController.latitude.value.toString(),
               longitude: gpsController.longitude.value.toString());
           if (retorno['status'] == 'error') {
@@ -83,5 +82,9 @@ class ValidarBiometriaController extends GetxController {
     } catch (e) {
       Messages.exibeMensagemErro('Falha ao capturar imagem');
     }
+  }
+
+  Future<void> lerQRCode(BuildContext context) async {
+    
   }
 }

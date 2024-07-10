@@ -41,6 +41,7 @@ dependencies:
   url_launcher:
   validatorless:
   image_picker:
+  flutter_barcode_scanner:
   face_camera: 0.1.2
 
 

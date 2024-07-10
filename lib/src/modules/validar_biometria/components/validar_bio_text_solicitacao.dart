@@ -4,18 +4,17 @@ import 'package:get/get.dart';
 import 'package:momento/src/core/theme/theme_colors.dart';
 import 'package:momento/src/core/theme/theme_text_styles.dart';
 import 'package:momento/src/modules/validar_biometria/validar_biometria_controller.dart';
-import 'package:validatorless/validatorless.dart';
 
-class ValidarBiometriaTextCarteirinha extends StatefulWidget {
-  const ValidarBiometriaTextCarteirinha({super.key});
+class ValidarBiometriaTextSolicitacao extends StatefulWidget {
+  const ValidarBiometriaTextSolicitacao({super.key});
 
   @override
-  State<ValidarBiometriaTextCarteirinha> createState() =>
-      _ValidarBiometriaTextCarteirinhaState();
+  State<ValidarBiometriaTextSolicitacao> createState() =>
+      _ValidarBiometriaTextSolicitacaoState();
 }
 
-class _ValidarBiometriaTextCarteirinhaState
-    extends State<ValidarBiometriaTextCarteirinha> {
+class _ValidarBiometriaTextSolicitacaoState
+    extends State<ValidarBiometriaTextSolicitacao> {
   final controller = Get.find<ValidarBiometriaController>();
   @override
   Widget build(BuildContext context) {
@@ -24,18 +23,13 @@ class _ValidarBiometriaTextCarteirinhaState
             width: 900.w,
             height: 200.h,
             child: TextFormField(
-              controller: controller.carteirinhaController.value,
+              enabled: false,
+              controller: controller.solicitacaoController.value,
               textAlign: TextAlign.start,
               style: ThemeTextStyles.getBlack45Style,
-              keyboardType: TextInputType.text,
-              validator: Validatorless.multiple(
-                [
-                  Validatorless.min(17, 'Carteirinha deve ter 17 caracteres'),
-                  Validatorless.required('A carteirinha é obrigatória'),
-                ],
-              ),
+              keyboardType: TextInputType.text,              
               decoration: InputDecoration(
-                labelText: 'Carteirinha',
+                labelText: 'Solicitação',
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: ThemeColors.cinzaPadrao,

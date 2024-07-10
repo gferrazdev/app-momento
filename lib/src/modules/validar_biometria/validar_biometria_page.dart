@@ -5,8 +5,9 @@ import 'package:momento/src/core/theme/theme_colors.dart';
 import 'package:momento/src/core/theme/theme_text_styles.dart';
 import 'package:momento/src/modules/validar_biometria/components/validar_bio_button_capturar.dart';
 import 'package:momento/src/modules/validar_biometria/components/validar_bio_button_enviar.dart';
+import 'package:momento/src/modules/validar_biometria/components/validar_bio_button_qrcode.dart';
 import 'package:momento/src/modules/validar_biometria/components/validar_bio_image_benef.dart';
-import 'package:momento/src/modules/validar_biometria/components/validar_bio_text_carteirinha.dart';
+import 'package:momento/src/modules/validar_biometria/components/validar_bio_text_solicitacao.dart';
 import 'package:momento/src/modules/validar_biometria/validar_biometria_controller.dart';
 
 class ValidarBiometriaPage extends StatefulWidget {
@@ -43,15 +44,23 @@ class _ValidarBiometriaPageState extends State<ValidarBiometriaPage> {
             child: ListView(
               children: [
                 SizedBox(height: 50.h),
-                const ValidarBiometriaTextCarteirinha(),
+                const ValidarBiometriaButtonQRCode(),
+                SizedBox(height: 50.h),
+                const ValidarBiometriaTextSolicitacao(),
                 controller.base64Image.value.isEmpty
                     ? Container()
                     : ValidarBiometriaImageBenef(
                         base64String: controller.base64Image.value),
-                SizedBox(height: 30.h),
-                const ValidarBiometriaButtonCapturar(),
-                SizedBox(height: 50.h),
-                const ValidarBiometriaButtonEnviar()
+                controller.base64Image.value.isEmpty
+                    ? SizedBox(height: 300.h) :  SizedBox(height: 50.h),
+                controller.cdSolicitacao.value == ''
+                    ? Container()
+                    : const ValidarBiometriaButtonCapturar(),
+                SizedBox(height: 40.h),
+                controller.cdSolicitacao.value == ''
+                    ? Container()
+                    : const ValidarBiometriaButtonEnviar(),
+                    SizedBox(height: 50.h),
               ],
             ),
           ),
