@@ -15,7 +15,8 @@ class ValidarBiometriaService {
       required String latitude,
       required String longitude}) async {
     final apiController = getx.Get.find<APIController>();
-    String url = "${apiController.urlBase}verificarBiometria.rule?sys=MOM";
+    String url =
+        "${apiController.urlBase}verificarBiometriaFacial.rule?sys=MOM";
     Map<String, dynamic> retorno = {};
     Map<String, dynamic> mapEnvio = {};
     mapEnvio['carteiraBeneficiario'] = carteira;
@@ -23,6 +24,7 @@ class ValidarBiometriaService {
     mapEnvio['latitude'] = latitude;
     mapEnvio['longitude'] = longitude;
     var body = json.encode(mapEnvio);
+    debugPrint(body.toString());
     try {
       BaseOptions currentOptions = customDio.getDioOptions();
       BaseOptions newOptions = currentOptions.copyWith(
@@ -32,9 +34,7 @@ class ValidarBiometriaService {
       Response response;
       response = await customDio.post(url, body);
       debugPrint(response.data.toString());
-      if (response.statusCode == 200) {
-        retorno = response.data;
-      }
+      retorno = response.data;
     } on DioException catch (e) {
       debugPrint('Erro ao cadastrar foto: $e');
       rethrow;

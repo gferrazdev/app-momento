@@ -11,7 +11,7 @@ class Messages {
         padding: EdgeInsets.all(30.w),
         borderRadius: 4,
         duration: const Duration(seconds: 5),
-        backgroundColor: ThemeColors.rosaPadrao,
+        backgroundColor: ThemeColors.errorColor,
         colorText: Colors.white,
         snackPosition: SnackPosition.BOTTOM);
   }

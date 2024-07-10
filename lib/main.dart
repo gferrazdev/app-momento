@@ -1,3 +1,4 @@
+import 'package:face_camera/face_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -12,5 +13,6 @@ void main() async {
   Get.put(APIController());
   Get.put(GPSController());
   await ScreenUtil.ensureScreenSize();
+  await FaceCamera.initialize();
   runApp(const AppMaterial());
 }

@@ -20,15 +20,17 @@ class LoginService {
     Map<String, dynamic> mapEnvio = {};
     mapEnvio['username'] = userLogin.username;
     mapEnvio['password'] = userLogin.password;
+    mapEnvio['latitude'] = latitude;
+    mapEnvio['longitude'] = longitude;
     var body = json.encode(mapEnvio);
+
     try {
       Response response;
       response = await customDio.post(url, body);
-      if (response.statusCode == 200) {
-        retorno = response.data;
-      }
+      debugPrint(response.data.toString());
+      retorno = response.data;
     } on DioException catch (e) {
-      debugPrint('Erro ao obter Token: $e');
+      debugPrint('Erro ao realizar login: $e');
       rethrow;
     }
     return retorno;

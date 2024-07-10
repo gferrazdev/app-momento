@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:momento/src/core/controllers/gps_controller.dart';
 import 'package:momento/src/core/theme/theme_colors.dart';
 import 'package:momento/src/core/theme/theme_text_styles.dart';
 import 'package:momento/src/core/ui/components/widgets.dart';
-import 'package:momento/src/modules/login/login_controller.dart';
+import 'package:momento/src/modules/validar_biometria/validar_biometria_controller.dart';
 
-class LoginButtonEntrar extends StatefulWidget {
-  const LoginButtonEntrar({super.key});
+class ValidarBiometriaButtonCapturar extends StatefulWidget {
+  const ValidarBiometriaButtonCapturar({super.key});
 
   @override
-  State<LoginButtonEntrar> createState() => _LoginButtonEntrarState();
+  State<ValidarBiometriaButtonCapturar> createState() =>
+      _ValidarBiometriaButtonCapturarState();
 }
 
-class _LoginButtonEntrarState extends State<LoginButtonEntrar> {
-  final controller = Get.find<LoginController>();
+class _ValidarBiometriaButtonCapturarState
+    extends State<ValidarBiometriaButtonCapturar> {
+  final controller = Get.find<ValidarBiometriaController>();
+  final gpsController = Get.find<GPSController>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => controller.carregando.value
-          ? SharedWidgets.progressIndicator('Carregando')
+          ? Container()
           : Align(
               child: SizedBox(
                 width: 900.w,
@@ -33,10 +37,8 @@ class _LoginButtonEntrarState extends State<LoginButtonEntrar> {
                       borderRadius: BorderRadius.circular(15.h),
                     ),
                   ),
-                  onPressed: () {
-                    if (controller.formKey.value.currentState!.validate()) {
-                      controller.login();
-                    }
+                  onPressed: () async {
+                    await controller.tirarFoto();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -45,7 +47,7 @@ class _LoginButtonEntrarState extends State<LoginButtonEntrar> {
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Icon(
-                            Icons.exit_to_app,
+                            Icons.camera_alt_outlined,
                             color: Colors.white,
                             size: 70.h,
                           ),
@@ -58,7 +60,7 @@ class _LoginButtonEntrarState extends State<LoginButtonEntrar> {
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Text(
-                            "Entrar",
+                            "Capturar Foto",
                             style: ThemeTextStyles.getWhite45BoldStyle,
                           ),
                         ),

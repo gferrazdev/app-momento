@@ -15,7 +15,8 @@ class CadadastrarBiometriaButtonEnviar extends StatefulWidget {
       _CadadastrarBiometriaButtonEnviarState();
 }
 
-class _CadadastrarBiometriaButtonEnviarState extends State<CadadastrarBiometriaButtonEnviar> {
+class _CadadastrarBiometriaButtonEnviarState
+    extends State<CadadastrarBiometriaButtonEnviar> {
   final controller = Get.find<CadastrarBiometriaController>();
   final gpsController = Get.find<GPSController>();
 
@@ -33,11 +34,13 @@ class _CadadastrarBiometriaButtonEnviarState extends State<CadadastrarBiometriaB
                     elevation: 10,
                     backgroundColor: ThemeColors.roxoPadrao,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(120.h),
+                      borderRadius: BorderRadius.circular(15.h),
                     ),
                   ),
                   onPressed: () async {
-                    await controller.enviarDados();
+                    if (controller.formKey.value.currentState!.validate()) {
+                      await controller.enviarDados();
+                    }
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +49,7 @@ class _CadadastrarBiometriaButtonEnviarState extends State<CadadastrarBiometriaB
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Icon(
-                            Icons.camera_alt_outlined,
+                            Icons.send,
                             color: Colors.white,
                             size: 70.h,
                           ),
@@ -59,7 +62,7 @@ class _CadadastrarBiometriaButtonEnviarState extends State<CadadastrarBiometriaB
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Text(
-                            "Capturar Imagem e Enviar",
+                            "Enviar Foto",
                             style: ThemeTextStyles.getWhite45BoldStyle,
                           ),
                         ),
