@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:momento/src/core/controllers/gps_controller.dart';
+import 'package:momento/src/core/ui/document_camera.dart';
 import 'package:momento/src/core/ui/helpers/messages.dart';
 import 'package:momento/src/modules/cadastrar_biometria/cadastrar_biometria_service.dart';
 import 'package:momento/src/core/ui/face_camera.dart';
@@ -19,7 +20,7 @@ class CadastrarBiometriaController extends GetxController {
 
   var formKey = GlobalKey<FormState>().obs;
   var carteirinhaController = TextEditingController().obs;
-
+  var base64ImageDoc = ''.obs;
   var base64Image = ''.obs;
 
   @override
@@ -37,7 +38,7 @@ class CadastrarBiometriaController extends GetxController {
   }
 
   Future<void> enviarDados() async {
-    if (base64Image.value.isNotEmpty) {
+    if (base64Image.value.isNotEmpty && base64ImageDoc.value.isNotEmpty) {
       if (gpsController.latitude.value != 0.0 &&
           gpsController.longitude.value != 0.0) {
         carregando.value = true;
@@ -45,6 +46,7 @@ class CadastrarBiometriaController extends GetxController {
         try {
           retorno = await cadastrarBiometriaService.cadastrarBiometria(
               foto: base64Image.value,
+              fotoDocumento: base64ImageDoc.value,
               carteira: carteirinhaController.value.text,
               latitude: gpsController.latitude.value.toString(),
               longitude: gpsController.longitude.value.toString());
@@ -66,23 +68,63 @@ class CadastrarBiometriaController extends GetxController {
         Messages.exibeMensagemErro('Coordenadas GPS não obtidas.');
       }
     } else {
-      Messages.exibeMensagemErro('Nenhuma imagem foi capturada.');
+      String mensagemErro = '';
+      if (base64Image.value.isEmpty && base64ImageDoc.value.isEmpty) {
+        mensagemErro +=
+            'Você deve capturar a Biometria Facial e a Carteirinha.';
+      } else if (base64ImageDoc.value.isEmpty && base64Image.value.isNotEmpty) {
+        mensagemErro += 'Você deve capturar aCarteirinha.';
+      } else if (base64Image.value.isEmpty && base64ImageDoc.value.isNotEmpty) {
+        mensagemErro += 'Você deve capturar a Biometria Facial.';
+      }
+      Messages.exibeMensagemErro(mensagemErro);
     }
   }
 
   Future<void> tirarFoto() async {
     try {
-      File? capturedImage = await Navigator.of(Get.context!).push(
+      File? arquivo = await Navigator.of(Get.context!).push(
         MaterialPageRoute(
           builder: (context) => const FaceCameraScreen(),
         ),
       );
 
-      if (capturedImage != null) {
-        List<int> imageBytes = await capturedImage.readAsBytes();
-        base64Image.value = base64Encode(imageBytes);
+      if (arquivo != null) {
+        // Ler bytes do arquivo
+        Uint8List imageData = await arquivo.readAsBytes();
+
+        // Converter para Base64
+        String base64 = base64Encode(imageData);
+
+        // Atualizar a variável reativa
+        base64Image.value = base64;
       }
     } catch (e) {
+      // Mostrar mensagem de erro
+      Messages.exibeMensagemErro('Falha ao capturar imagem');
+    }
+  }
+
+  Future<void> capturarDocumento() async {
+    try {
+      File? arquivo = await Navigator.of(Get.context!).push(
+        MaterialPageRoute(
+          builder: (context) => const CapturarCarteirinhaCam(),
+        ),
+      );
+
+      if (arquivo != null) {
+        // Ler bytes do arquivo
+        Uint8List imageData = await arquivo.readAsBytes();
+
+        // Converter para Base64
+        String base64 = base64Encode(imageData);
+
+        // Atualizar a variável reativa
+        base64ImageDoc.value = base64;
+      }
+    } catch (e) {
+      // Mostrar mensagem de erro
       Messages.exibeMensagemErro('Falha ao capturar imagem');
     }
   }

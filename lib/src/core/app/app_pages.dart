@@ -31,5 +31,6 @@ class AppPages {
       page: () => const ValidarBiometriaPage(),
       binding: ValidarBiometriaBindings(),
     ),
+    
   ];
 }

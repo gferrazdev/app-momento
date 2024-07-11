@@ -11,6 +11,7 @@ class CadastrarBiometriaService {
   CadastrarBiometriaService({required this.customDio});
   Future<Map<String, dynamic>> cadastrarBiometria(
       {required String foto,
+      required String fotoDocumento,
       required String carteira,
       required String latitude,
       required String longitude}) async {
@@ -20,6 +21,7 @@ class CadastrarBiometriaService {
     Map<String, dynamic> retorno = {};
     Map<String, dynamic> mapEnvio = {};
     mapEnvio['carteiraBeneficiario'] = carteira;
+    mapEnvio['fotoCarteira'] = fotoDocumento;
     mapEnvio['fotoBase64'] = foto;
     mapEnvio['latitude'] = latitude;
     mapEnvio['longitude'] = longitude;

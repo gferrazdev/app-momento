@@ -21,6 +21,7 @@ class ValidarBiometriaController extends GetxController {
   var cdSolicitacao = ''.obs;
   var base64Image = ''.obs;
 
+
   @override
   void onInit() {
     super.onInit();
@@ -90,4 +91,6 @@ class ValidarBiometriaController extends GetxController {
       Messages.exibeMensagemErro('Falha ao capturar imagem');
     }
   }
+
+  
 }

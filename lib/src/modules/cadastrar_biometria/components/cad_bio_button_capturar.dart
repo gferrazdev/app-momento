@@ -58,7 +58,7 @@ class _CadadastrarBiometriaButtonCapturarState extends State<CadadastrarBiometri
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Text(
-                            "Capturar Foto",
+                            "Capturar Biometria Facial",
                             style: ThemeTextStyles.getWhite45BoldStyle,
                           ),
                         ),
