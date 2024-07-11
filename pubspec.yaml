@@ -40,9 +40,8 @@ dependencies:
   path_provider:
   url_launcher:
   validatorless:
-  image_picker:
   flutter_barcode_scanner:
-  face_camera: 0.1.2
+  biopassid_face_sdk:
 
 
   # The following adds the Cupertino Icons font to your application.

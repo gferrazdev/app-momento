@@ -69,22 +69,25 @@ class ValidarBiometriaController extends GetxController {
 
   Future<void> tirarFoto() async {
     try {
-      File? capturedImage = await Navigator.of(Get.context!).push(
+      File? arquivo = await Navigator.of(Get.context!).push(
         MaterialPageRoute(
           builder: (context) => const FaceCameraScreen(),
         ),
       );
 
-      if (capturedImage != null) {
-        List<int> imageBytes = await capturedImage.readAsBytes();
-        base64Image.value = base64Encode(imageBytes);
+      if (arquivo != null) {
+        // Ler bytes do arquivo
+        Uint8List imageData = await arquivo.readAsBytes();
+
+        // Converter para Base64
+        String base64 = base64Encode(imageData);
+
+        // Atualizar a variável reativa
+        base64Image.value = base64;
       }
     } catch (e) {
+      // Mostrar mensagem de erro
       Messages.exibeMensagemErro('Falha ao capturar imagem');
     }
-  }
-
-  Future<void> lerQRCode(BuildContext context) async {
-    
   }
 }
