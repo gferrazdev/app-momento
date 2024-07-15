@@ -1,13 +1,11 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_camera_overlay/flutter_camera_overlay.dart';
 import 'package:flutter_camera_overlay/model.dart';
-import 'package:path_provider/path_provider.dart';
 
 class CapturarCarteirinhaCam extends StatefulWidget {
-  const CapturarCarteirinhaCam({Key? key}) : super(key: key);
+  const CapturarCarteirinhaCam({super.key});
 
   @override
   _CapturarCarteirinhaCamState createState() => _CapturarCarteirinhaCamState();

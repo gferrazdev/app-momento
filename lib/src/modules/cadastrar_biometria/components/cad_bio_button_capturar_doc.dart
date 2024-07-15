@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:momento/src/core/theme/theme_colors.dart';
 import 'package:momento/src/core/theme/theme_text_styles.dart';
-import 'package:momento/src/core/ui/document_camera.dart';
 import 'package:momento/src/modules/cadastrar_biometria/cadastrar_biometria_controller.dart';
 
 class CadadastrarBiometriaButtonCapturarDoc extends StatefulWidget {

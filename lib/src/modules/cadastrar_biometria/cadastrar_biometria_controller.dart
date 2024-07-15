@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:momento/src/core/controllers/gps_controller.dart';
 import 'package:momento/src/core/ui/document_camera.dart';
 import 'package:momento/src/core/ui/helpers/messages.dart';
@@ -22,6 +23,7 @@ class CadastrarBiometriaController extends GetxController {
   var carteirinhaController = TextEditingController().obs;
   var base64ImageDoc = ''.obs;
   var base64Image = ''.obs;
+  var base64ImageDocFace = ''.obs;
 
   @override
   void onInit() {
@@ -122,6 +124,28 @@ class CadastrarBiometriaController extends GetxController {
 
         // Atualizar a variável reativa
         base64ImageDoc.value = base64;
+      }
+    } catch (e) {
+      // Mostrar mensagem de erro
+      Messages.exibeMensagemErro('Falha ao capturar imagem');
+    }
+  }
+
+  Future<void> capturarDocFace() async {
+    final picker = ImagePicker();
+    
+    try {
+      final pickedFile = await picker.pickImage(source: ImageSource.camera,preferredCameraDevice: CameraDevice.front);
+
+      if (pickedFile != null) {
+        // Ler bytes do arquivo
+        Uint8List imageData = await pickedFile.readAsBytes();
+
+        // Converter para Base64
+        String base64 = base64Encode(imageData);
+
+        // Atualizar a variável reativa
+        base64ImageDocFace.value = base64;
       }
     } catch (e) {
       // Mostrar mensagem de erro

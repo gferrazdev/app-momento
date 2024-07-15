@@ -6,8 +6,10 @@ import 'package:momento/src/core/theme/theme_text_styles.dart';
 import 'package:momento/src/modules/cadastrar_biometria/cadastrar_biometria_controller.dart';
 import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_button_capturar.dart';
 import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_button_capturar_doc.dart';
+import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_button_capturar_doc_face.dart';
 import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_button_enviar.dart';
 import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_image_carteirinha.dart';
+import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_image_doc_face.dart';
 import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_text_carteirinha.dart';
 import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_image_benef.dart';
 
@@ -46,22 +48,30 @@ class _CadastrarBiometriaPageState extends State<CadastrarBiometriaPage> {
               children: [
                 SizedBox(height: 50.h),
                 const CadastrarBiometriaTextCarteirinha(),
+                SizedBox(height: 30.h),
+                const CadadastrarBiometriaButtonCapturar(),
+                 SizedBox(height: 30.h),
                 controller.base64Image.value.isEmpty
                     ? Container()
                     : CadastroBiometricoImageBenef(
                         base64String: controller.base64Image.value),
                 SizedBox(height: 30.h),
-                const CadadastrarBiometriaButtonCapturar(),
+                const CadadastrarBiometriaButtonCapturarDoc(),
                 SizedBox(height: 30.h),
                 controller.base64ImageDoc.value.isEmpty
                     ? Container()
                     : CadastroBiometricoImageCarteirinha(
                         base64String: controller.base64ImageDoc.value),
                 SizedBox(height: 30.h),
-                const CadadastrarBiometriaButtonCapturarDoc(),
+                const CadadastrarBiometriaButtonCapturarDocFace(),
+                SizedBox(height: 30.h),
+                controller.base64ImageDocFace.value.isEmpty
+                    ? Container()
+                    : CadastroBiometricoImageDocFace(
+                        base64String: controller.base64ImageDocFace.value),
                 SizedBox(height: 30.h),
                 const CadadastrarBiometriaButtonEnviar(),
-                 SizedBox(height: 100.h),
+                SizedBox(height: 100.h),
               ],
             ),
           ),
