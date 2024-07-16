@@ -19,51 +19,34 @@ class _ButtonVerificarBiometriaState extends State<ButtonVerificarBiometria> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () { Get.toNamed(AppRoutes.VERIFICAR_BIOMETRIA);},
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: SizedBox(
-          width: 950.w,
-          height: 200.w,
-          child: Card(
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(45.w),
+      onTap: () {
+        Get.toNamed(AppRoutes.VERIFICAR_BIOMETRIA);
+      },
+      child: Column(
+        children: [
+          Container(
+            width: 500.w,
+            height: 500.w,
+            decoration: BoxDecoration(
+              color: ThemeColors.roxoEscuro,
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.topRight,
+                colors: [ThemeColors.roxoPadrao, ThemeColors.roxoClaro],
               ),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 180.w,
-                  height: 200.w,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      colors: [ThemeColors.roxoClaro, ThemeColors.roxoPadrao],
-                    ),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(45.w),
-                    ),
-                  ),
-                  child: Icon(
-                    Icons.face_outlined,
-                    color: Colors.white,
-                    size: 60.h,
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 60.w),
-                    child: Text('Verificar Biometria Facial',
-                        style: ThemeTextStyles.getPurple45BoldStyle),
-                  ),
-                ),
-              ],
+              image: const DecorationImage(
+                image: AssetImage('img/pessoa.png'),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(10.h),
             ),
           ),
-        ),
+          SizedBox(height: 30.h),
+          Text(
+            'Verificar Biometria Facial',
+            style: ThemeTextStyles.getPurple45BoldStyle,
+          ),
+        ],
       ),
     );
   }

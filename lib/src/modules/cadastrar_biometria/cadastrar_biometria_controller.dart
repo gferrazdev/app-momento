@@ -47,8 +47,9 @@ class CadastrarBiometriaController extends GetxController {
         Map<String, dynamic> retorno = {};
         try {
           retorno = await cadastrarBiometriaService.cadastrarBiometria(
-              foto: base64Image.value,
+              fotoBenef: base64Image.value,
               fotoDocumento: base64ImageDoc.value,
+              fotoBenefComDoc: base64ImageDocFace.value,
               carteira: carteirinhaController.value.text,
               latitude: gpsController.latitude.value.toString(),
               longitude: gpsController.longitude.value.toString());
