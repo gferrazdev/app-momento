@@ -40,7 +40,9 @@ class CadastrarBiometriaController extends GetxController {
   }
 
   Future<void> enviarDados() async {
-    if (base64Image.value.isNotEmpty && base64ImageDoc.value.isNotEmpty) {
+    if (base64Image.value.isNotEmpty &&
+        base64ImageDoc.value.isNotEmpty &&
+        base64ImageDocFace.value.isNotEmpty) {
       if (gpsController.latitude.value != 0.0 &&
           gpsController.longitude.value != 0.0) {
         carregando.value = true;
@@ -63,7 +65,7 @@ class CadastrarBiometriaController extends GetxController {
           }
           carregando.value = false;
         } catch (e) {
-          Messages.exibeMensagemErro('Erro ao enviar a Imagem');
+          Messages.exibeMensagemErro(e.toString());
           carregando.value = false;
           debugPrint(e.toString());
         }
@@ -72,15 +74,47 @@ class CadastrarBiometriaController extends GetxController {
       }
     } else {
       String mensagemErro = '';
-      if (base64Image.value.isEmpty && base64ImageDoc.value.isEmpty) {
-        mensagemErro +=
-            'Você deve capturar a Biometria Facial e a Carteirinha.';
-      } else if (base64ImageDoc.value.isEmpty && base64Image.value.isNotEmpty) {
-        mensagemErro += 'Você deve capturar aCarteirinha.';
-      } else if (base64Image.value.isEmpty && base64ImageDoc.value.isNotEmpty) {
-        mensagemErro += 'Você deve capturar a Biometria Facial.';
+      bool isBiometriaFacialCapturada = base64Image.value.isNotEmpty;
+      bool isCarteirinhaCapturada = base64ImageDoc.value.isNotEmpty;
+      bool isFotoComCarteirinhaCapturada = base64ImageDocFace.value.isNotEmpty;
+
+      if (!isBiometriaFacialCapturada &&
+          !isCarteirinhaCapturada &&
+          !isFotoComCarteirinhaCapturada) {
+        mensagemErro =
+            'Você deve capturar a Biometria Facial, a Carteirinha e uma foto do rosto com um Documento de Identificação.';
+      } else if (!isCarteirinhaCapturada &&
+          isBiometriaFacialCapturada &&
+          isFotoComCarteirinhaCapturada) {
+        mensagemErro = 'Você deve capturar a Carteirinha.';
+      } else if (!isBiometriaFacialCapturada &&
+          isCarteirinhaCapturada &&
+          isFotoComCarteirinhaCapturada) {
+        mensagemErro = 'Você deve capturar a Biometria Facial.';
+      } else if (!isFotoComCarteirinhaCapturada &&
+          isBiometriaFacialCapturada &&
+          isCarteirinhaCapturada) {
+        mensagemErro =
+            'Você deve capturar uma foto do rosto com um Documento de Identificação.';
+      } else if (!isBiometriaFacialCapturada &&
+          !isCarteirinhaCapturada &&
+          isFotoComCarteirinhaCapturada) {
+        mensagemErro = 'Você deve capturar a Biometria Facial e a Carteirinha.';
+      } else if (isBiometriaFacialCapturada &&
+          !isCarteirinhaCapturada &&
+          !isFotoComCarteirinhaCapturada) {
+        mensagemErro =
+            'Você deve capturar a Carteirinha e uma foto do rosto com um Documento de Identificação.';
+      } else if (!isBiometriaFacialCapturada &&
+          isCarteirinhaCapturada &&
+          !isFotoComCarteirinhaCapturada) {
+        mensagemErro =
+            'Você deve capturar a Biometria Facial e uma foto do rosto com um Documento de Identificação.';
       }
-      Messages.exibeMensagemErro(mensagemErro);
+
+      if (mensagemErro.isNotEmpty) {
+        Messages.exibeMensagemErro(mensagemErro);
+      }
     }
   }
 
@@ -134,9 +168,11 @@ class CadastrarBiometriaController extends GetxController {
 
   Future<void> capturarDocFace() async {
     final picker = ImagePicker();
-    
+
     try {
-      final pickedFile = await picker.pickImage(source: ImageSource.camera,preferredCameraDevice: CameraDevice.front);
+      final pickedFile = await picker.pickImage(
+          source: ImageSource.camera,
+          preferredCameraDevice: CameraDevice.front);
 
       if (pickedFile != null) {
         // Ler bytes do arquivo

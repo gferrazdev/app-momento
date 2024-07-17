@@ -13,7 +13,8 @@ class CadadastrarBiometriaButtonCapturarDoc extends StatefulWidget {
       _CadadastrarBiometriaButtonCapturarDocState();
 }
 
-class _CadadastrarBiometriaButtonCapturarDocState extends State<CadadastrarBiometriaButtonCapturarDoc> {
+class _CadadastrarBiometriaButtonCapturarDocState
+    extends State<CadadastrarBiometriaButtonCapturarDoc> {
   final controller = Get.find<CadastrarBiometriaController>();
 
   @override
@@ -33,8 +34,8 @@ class _CadadastrarBiometriaButtonCapturarDocState extends State<CadadastrarBiome
                       borderRadius: BorderRadius.circular(15.h),
                     ),
                   ),
-                  onPressed: ()  {
-                   controller.capturarDocumento();
+                  onPressed: () {
+                    controller.capturarDocumento();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -43,7 +44,7 @@ class _CadadastrarBiometriaButtonCapturarDocState extends State<CadadastrarBiome
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Icon(
-                            Icons.file_copy,
+                            Icons.credit_card,
                             color: Colors.white,
                             size: 70.h,
                           ),
@@ -52,14 +53,9 @@ class _CadadastrarBiometriaButtonCapturarDocState extends State<CadadastrarBiome
                       SizedBox(
                         width: 80.w,
                       ),
-                      Flexible(
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            "Capturar Documento",
-                            style: ThemeTextStyles.getWhite45BoldStyle,
-                          ),
-                        ),
+                      Text(
+                        "Capturar Carteirinha",
+                        style: ThemeTextStyles.getWhite45BoldStyle,
                       ),
                     ],
                   ),

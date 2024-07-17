@@ -24,8 +24,15 @@ class _CadadastrarBiometriaButtonCapturarDocFaceState
           ? Container()
           : Column(
               children: [
-                Text('Tire uma selfie segurando a carteirinha.',
-                    style: ThemeTextStyles.getBlack50BoldStyle),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 100.w),
+                  child: Center(
+                    child: Text(
+                        'Tire uma Foto do Rosto segurando o Documento de Identificação:',  
+                        textAlign: TextAlign.center,                    
+                        style: ThemeTextStyles.getBlack50BoldStyle),
+                  ),
+                ),
                 SizedBox(height: 20.h),
                 Align(
                   child: SizedBox(
@@ -58,14 +65,9 @@ class _CadadastrarBiometriaButtonCapturarDocFaceState
                           SizedBox(
                             width: 80.w,
                           ),
-                          Flexible(
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                "Capturar",
-                                style: ThemeTextStyles.getWhite45BoldStyle,
-                              ),
-                            ),
+                          Text(
+                            "Capturar Rosto com Documento",
+                            style: ThemeTextStyles.getWhite45BoldStyle,
                           ),
                         ],
                       ),
