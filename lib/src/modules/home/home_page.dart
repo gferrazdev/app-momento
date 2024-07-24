@@ -24,9 +24,9 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const CardPrestador(),
-            SizedBox(height: 220.h),
+            SizedBox(height: 150.h),
             const ButtonCadastrarBiometria(),
-            SizedBox(height: 30.h),
+            SizedBox(height: 80.h),
             const ButtonVerificarBiometria()
           ],
         ),

@@ -30,8 +30,8 @@ class _FaceCameraScreenState extends State<FaceCameraScreen> {
     config.lensDirection = FaceCameraLensDirection.front;
     controller = FaceController(
       config: config,
-      onFaceCapture: (Uint8List image) async {
-        File arquivoTemporario = await salvarUint8ListComoArquivoTemporario(image, 'minha_foto.jpg');
+      onFaceCapture: (Uint8List image)  async {
+        File arquivoTemporario =  await salvarUint8ListComoArquivoTemporario(image, 'minha_foto.jpg');
         // Retorna a string Base64 para a página anterior
         Navigator.pop(context, arquivoTemporario);
       },

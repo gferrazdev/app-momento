@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:momento/src/modules/cadastrar_biometria/cadastrar_biometria_controller.dart';
 
-class CadastroBiometricoImageBenef extends StatefulWidget {
+class CadastroBiometricoImageDocFace extends StatefulWidget {
   final String base64String;
 
-  const CadastroBiometricoImageBenef({super.key, required this.base64String});
+  const CadastroBiometricoImageDocFace({super.key, required this.base64String});
 
   @override
-  State<CadastroBiometricoImageBenef> createState() => _CadastroBiometricoImageBenefState();
+  State<CadastroBiometricoImageDocFace> createState() => _CadastroBiometricoImageDocFaceState();
 }
 
-class _CadastroBiometricoImageBenefState extends State<CadastroBiometricoImageBenef> {
+class _CadastroBiometricoImageDocFaceState extends State<CadastroBiometricoImageDocFace> {
   final controller = Get.find<CadastrarBiometriaController>();
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _CadastroBiometricoImageBenefState extends State<CadastroBiometricoImageBe
               15.h), // Define o raio das bordas arredondadas
           child: Image.memory(
             imageBytes,
-            fit: BoxFit.cover,
+            fit: BoxFit.fitWidth,
           ),
         ),
       ),

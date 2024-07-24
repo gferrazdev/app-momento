@@ -42,6 +42,9 @@ dependencies:
   validatorless:
   flutter_barcode_scanner:
   biopassid_face_sdk:
+  flutter_camera_overlay:
+  camera:
+  image_picker:
 
 
   # The following adds the Cupertino Icons font to your application.
