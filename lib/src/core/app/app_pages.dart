@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:momento/src/modules/cadastrar_biometria/cadastrar_biometria_bindings.dart';
 import 'package:momento/src/modules/cadastrar_biometria/cadastrar_biometria_page.dart';
+import 'package:momento/src/modules/consulta_elegibilidade/consulta_elegibilidade_bindings.dart';
+import 'package:momento/src/modules/consulta_elegibilidade/consulta_elegibilidade_page.dart';
 import 'package:momento/src/modules/home/home_bindings.dart';
 import 'package:momento/src/modules/home/home_page.dart';
 import 'package:momento/src/modules/login/login_bindings.dart';
@@ -22,6 +24,11 @@ class AppPages {
       binding: HomeBindings(),
     ),
     GetPage(
+      name: AppRoutes.VERIFICAR_ELEGIBILIDADE,
+      page: () => const ConsultaElegibilidadePage(),
+      binding: ConsultaElegibilidadeBindings(),
+    ),
+    GetPage(
       name: AppRoutes.CADASTRAR_BIOMETRIA,
       page: () => const CadastrarBiometriaPage(),
       binding: CadastrarBiometriaBindings(),
@@ -31,6 +38,5 @@ class AppPages {
       page: () => const ValidarBiometriaPage(),
       binding: ValidarBiometriaBindings(),
     ),
-    
   ];
 }

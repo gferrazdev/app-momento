@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:momento/src/core/controllers/gps_controller.dart';
 import 'package:momento/src/core/theme/theme_colors.dart';
 import 'package:momento/src/core/theme/theme_text_styles.dart';
-import 'package:momento/src/modules/cadastrar_biometria/cadastrar_biometria_controller.dart';
+import 'package:momento/src/core/ui/components/widgets.dart';
+import 'package:momento/src/modules/consulta_elegibilidade/consulta_elegibilidade_controller.dart';
 
-class CadadastrarBiometriaButtonCapturarDoc extends StatefulWidget {
-  const CadadastrarBiometriaButtonCapturarDoc({super.key});
+class ConsultaElegibilidadeButtonConsultar extends StatefulWidget {
+  const ConsultaElegibilidadeButtonConsultar({super.key});
 
   @override
-  State<CadadastrarBiometriaButtonCapturarDoc> createState() =>
-      _CadadastrarBiometriaButtonCapturarDocState();
+  State<ConsultaElegibilidadeButtonConsultar> createState() =>
+      _ConsultaElegibilidadeButtonConsultarState();
 }
 
-class _CadadastrarBiometriaButtonCapturarDocState
-    extends State<CadadastrarBiometriaButtonCapturarDoc> {
-  final controller = Get.find<CadastrarBiometriaController>();
+class _ConsultaElegibilidadeButtonConsultarState
+    extends State<ConsultaElegibilidadeButtonConsultar> {
+  final controller = Get.find<ConsultaElegibilidadeController>();
+  final gpsController = Get.find<GPSController>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => controller.carregando.value
-          ? Container()
+          ? SharedWidgets.progressIndicator('Carregando')
           : Align(
               child: SizedBox(
                 width: 900.w,
@@ -34,8 +37,10 @@ class _CadadastrarBiometriaButtonCapturarDocState
                       borderRadius: BorderRadius.circular(15.h),
                     ),
                   ),
-                  onPressed: () {
-                    controller.capturarDocumento();
+                  onPressed: () async {
+                    if (controller.formKey.value.currentState!.validate()) {
+                      await controller.consultarElegibilidade();
+                    }
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -44,7 +49,7 @@ class _CadadastrarBiometriaButtonCapturarDocState
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Icon(
-                            Icons.credit_card,
+                            Icons.send,
                             color: Colors.white,
                             size: 70.h,
                           ),
@@ -53,9 +58,14 @@ class _CadadastrarBiometriaButtonCapturarDocState
                       SizedBox(
                         width: 80.w,
                       ),
-                      Text(
-                        "Capturar Carteirinha",
-                        style: ThemeTextStyles.getWhite45BoldStyle,
+                      Flexible(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            "Enviar Foto",
+                            style: ThemeTextStyles.getWhite45BoldStyle,
+                          ),
+                        ),
                       ),
                     ],
                   ),
