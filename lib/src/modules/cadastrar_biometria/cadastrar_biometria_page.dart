@@ -9,6 +9,7 @@ import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_butto
 import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_button_enviar.dart';
 import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_image_doc_face.dart';
 import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_image_benef.dart';
+import 'package:momento/src/modules/cadastrar_biometria/components/card_benef.dart';
 
 class CadastrarBiometriaPage extends StatefulWidget {
   const CadastrarBiometriaPage({super.key});
@@ -29,6 +30,7 @@ class _CadastrarBiometriaPageState extends State<CadastrarBiometriaPage> {
             'Cadastrar Biometria Facial',
             style: ThemeTextStyles.getWhite45BoldStyle,
           ),
+          centerTitle: true,
           leading: IconButton(
             onPressed: () {
               Get.back();
@@ -41,7 +43,8 @@ class _CadastrarBiometriaPageState extends State<CadastrarBiometriaPage> {
         body: Obx(
           () => ListView(
             children: [
-              SizedBox(height: 50.h),
+              const CardBenef(),
+              SizedBox(height: 80.h),
               const CadadastrarBiometriaButtonCapturar(),
               SizedBox(height: 30.h),
               controller.base64Image.value.isEmpty

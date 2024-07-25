@@ -49,7 +49,7 @@ class _ConsultaElegibilidadeButtonConsultarState
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Icon(
-                            Icons.send,
+                            Icons.check_circle_outlined,
                             color: Colors.white,
                             size: 70.h,
                           ),
@@ -62,7 +62,7 @@ class _ConsultaElegibilidadeButtonConsultarState
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Text(
-                            "Enviar Foto",
+                            "Consultar Elegibilidade",
                             style: ThemeTextStyles.getWhite45BoldStyle,
                           ),
                         ),

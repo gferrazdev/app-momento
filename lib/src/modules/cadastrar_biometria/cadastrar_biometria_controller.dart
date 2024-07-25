@@ -16,13 +16,14 @@ class CadastrarBiometriaController extends GetxController {
       {required this.gpsController, required this.cadastrarBiometriaService});
 
   var carregando = false.obs;
-
+  var nomeBenef = ''.obs;
   var base64Image = ''.obs;
   var base64ImageDocFace = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
+    nomeBenef.value = Get.arguments['nomeBenef'];
     obterCoordenadas();
   }
 

@@ -46,7 +46,7 @@ class ConsultaElegibilidadeController extends GetxController {
           Messages.exibeMensagemErro(retorno['message']);
         } else {
           Get.toNamed(AppRoutes.CADASTRAR_BIOMETRIA,
-              arguments: {'carteira': carteirinhaController.value.text});
+              arguments: {'carteira': carteirinhaController.value.text,'nomeBenef': retorno['nmBenef']});
         }
         carregando.value = false;
       } catch (e) {
