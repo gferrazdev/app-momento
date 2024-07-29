@@ -21,7 +21,6 @@ class ValidarBiometriaController extends GetxController {
   var cdSolicitacao = ''.obs;
   var base64Image = ''.obs;
 
-
   @override
   void onInit() {
     super.onInit();
@@ -51,20 +50,42 @@ class ValidarBiometriaController extends GetxController {
           if (retorno['status'] == 'error') {
             Messages.exibeMensagemErro(retorno['message']);
           } else {
-            Get.back();
-            Messages.exibeMensagemSucesso(
-                msg: retorno['message'], titulo: 'Validação Biométrica');
+            Messages.alertarAguardandoOK(
+                title: 'Validação Biométrica',
+                content: retorno['message'],
+                success: true,
+                f: () {
+                  Get.back();
+                });
           }
           carregando.value = false;
         } catch (e) {
-          Messages.exibeMensagemErro('Erro ao enviar a Imagem');
+          Messages.alertarAguardandoOK(
+              title: 'Erro ao Enviar a Imagem',
+              content: e.toString(),
+              success: false,
+              f: () {
+                Get.back();
+              });
           carregando.value = false;
         }
       } else {
-        Messages.exibeMensagemErro('Coordenadas GPS não obtidas.');
+        Messages.alertarAguardandoOK(
+            title: 'Erro ao Verificar Coordenadas',
+            content: 'Coordenadas GPS não obtidas.',
+            success: false,
+            f: () {
+              Get.back();
+            });
       }
     } else {
-      Messages.exibeMensagemErro('Nenhuma imagem foi capturada.');
+      Messages.alertarAguardandoOK(
+          title: 'Imagem não capturada',
+          content: 'Capture uma foto com a câmera.',
+          success: false,
+          f: () {
+            Get.back();
+          });
     }
   }
 
@@ -91,6 +112,4 @@ class ValidarBiometriaController extends GetxController {
       Messages.exibeMensagemErro('Falha ao capturar imagem');
     }
   }
-
-  
 }

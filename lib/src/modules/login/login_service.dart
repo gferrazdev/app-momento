@@ -26,8 +26,7 @@ class LoginService {
 
     try {
       Response response;
-      response = await customDio.post(url, body);
-      debugPrint(response.data.toString());
+      response = await customDio.post(url, body);     
       retorno = response.data;
     } on DioException catch (e) {
       debugPrint('Erro ao realizar login: $e');

@@ -22,7 +22,7 @@ class CadastrarBiometriaService {
     Map<String, dynamic> mapEnvio = {};
     mapEnvio['carteiraBeneficiario'] = carteira;
     mapEnvio['fotoBenefComDoc'] = fotoBenefComDoc;
-    mapEnvio['fotoBase64'] = fotoBenef;
+    mapEnvio['livenessBase64'] = fotoBenef;
     mapEnvio['latitude'] = latitude;
     mapEnvio['longitude'] = longitude;
     var body = json.encode(mapEnvio);

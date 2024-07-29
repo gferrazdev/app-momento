@@ -51,21 +51,44 @@ class CadastrarBiometriaController extends GetxController {
               longitude: gpsController.longitude.value.toString());
           debugPrint(retorno.toString());
           if (retorno['status'] == 'error') {
-            Messages.exibeMensagemErro(retorno['message']);
+            Messages.alertarAguardandoOK(
+                title: 'Erro ao Enviar Dados',
+                content: retorno['message'],
+                success: false,
+                f: () {
+                  Get.back();
+                });
           } else {
-            Get.back();
-            Get.back();
-            Messages.exibeMensagemSucesso(
-                msg: retorno['message'], titulo: 'Cadastro Biométrico');
+            Messages.alertarAguardandoOK(
+                title: 'Cadastro Biométrico',
+                content: retorno['message'],
+                success: true,
+                f: () {
+                  Get.back();
+                  Get.back();
+                });
           }
           carregando.value = false;
         } catch (e) {
-          Messages.exibeMensagemErro(e.toString());
+          Messages.alertarAguardandoOK(
+              title: 'Erro ao Enviar Dados',
+              content: e.toString(),
+              success: false,
+              f: () {
+                Get.back();
+              });
+
           carregando.value = false;
           debugPrint(e.toString());
         }
       } else {
-        Messages.exibeMensagemErro('Coordenadas GPS não obtidas.');
+        Messages.alertarAguardandoOK(
+            title: 'Erro ao Verificar Coordenadas',
+            content: 'Coordenadas GPS não obtidas.',
+            success: false,
+            f: () {
+              Get.back();
+            });
       }
     } else {
       String mensagemErro = '';
@@ -82,7 +105,13 @@ class CadastrarBiometriaController extends GetxController {
             'Você deve capturar uma foto do rosto com um Documento de Identificação.';
       }
       if (mensagemErro.isNotEmpty) {
-        Messages.exibeMensagemErro(mensagemErro);
+        Messages.alertarAguardandoOK(
+            title: 'Imagens não capturadas',
+            content: mensagemErro,
+            success: false,
+            f: () {
+              Get.back();
+            });
       }
     }
   }

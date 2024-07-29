@@ -24,7 +24,7 @@ class _ConsultaElegibilidadeButtonConsultarState
   Widget build(BuildContext context) {
     return Obx(
       () => controller.carregando.value
-          ? SharedWidgets.progressIndicator('Carregando')
+          ? SharedWidgets.progressIndicator('Aguarde...')
           : Align(
               child: SizedBox(
                 width: 900.w,

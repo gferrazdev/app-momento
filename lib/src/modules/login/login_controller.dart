@@ -44,19 +44,38 @@ class LoginController extends GetxController {
         carregando.value = false;
         if (retorno.containsKey('token')) {
           final apiController = Get.find<APIController>();
+          debugPrint('token: ${retorno['token']}');
           apiController.token.value = retorno['token'];
           Get.offAndToNamed(AppRoutes.HOME);
         } else {
-          Messages.exibeMensagemErro(retorno['message']);
+          Messages.alertarAguardandoOK(
+              title: 'Falha na Autenticação',
+              content: retorno['message'],
+              success: false,
+              f: () {
+                Get.back();
+              });
         }
         debugPrint(retorno.toString());
       } catch (e) {
-        Messages.exibeMensagemErro('Erro ao autenticar.');
+        Messages.alertarAguardandoOK(
+            title: 'Erro ao autenticar.',
+            content: e.toString(),
+            success: false,
+            f: () {
+              Get.back();
+            });
         carregando.value = false;
         debugPrint(e.toString());
       }
     } else {
-      Get.snackbar('Erro', 'Coordenadas GPS não obtidas.');
+      Messages.alertarAguardandoOK(
+          title: 'Erro ao Verificar Coordenadas',
+          content: 'Coordenadas GPS não obtidas.',
+          success: false,
+          f: () {
+            Get.back();
+          });
     }
   }
 }

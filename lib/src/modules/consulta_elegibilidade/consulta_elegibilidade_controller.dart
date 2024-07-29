@@ -40,22 +40,44 @@ class ConsultaElegibilidadeController extends GetxController {
       Map<String, dynamic> retorno = {};
       try {
         retorno = await consultaElegibilidadeService.consultaElegibillidade(
-            carteira: carteirinhaController.value.text);
+            carteira: carteirinhaController.value.text,
+            latitude: gpsController.latitude.value.toString(),
+            longitude: gpsController.longitude.value.toString());
         debugPrint(retorno.toString());
         if (retorno['status'] == 'error') {
-          Messages.exibeMensagemErro(retorno['message']);
+          Messages.alertarAguardandoOK(
+              title: retorno['message'],
+              content: retorno['dados']['glosa'],
+              success: false,
+              f: () {
+                Get.back();
+              });
         } else {
-          Get.toNamed(AppRoutes.CADASTRAR_BIOMETRIA,
-              arguments: {'carteira': carteirinhaController.value.text,'nomeBenef': retorno['nmBenef']});
+          Get.toNamed(AppRoutes.CADASTRAR_BIOMETRIA, arguments: {
+            'carteira': carteirinhaController.value.text,
+            'nomeBenef': retorno['dados']['nomeBeneficiario']
+          });
         }
         carregando.value = false;
       } catch (e) {
-        Messages.exibeMensagemErro(e.toString());
+        Messages.alertarAguardandoOK(
+            title: 'Erro ao consultar elegibilidade',
+            content: e.toString(),
+            success: false,
+            f: () {
+              Get.back();
+            });
         carregando.value = false;
         debugPrint(e.toString());
       }
     } else {
-      Messages.exibeMensagemErro('Coordenadas GPS não obtidas.');
+      Messages.alertarAguardandoOK(
+          title: 'Erro ao Verificar Coordenadas',
+          content: 'Coordenadas GPS não obtidas.',
+          success: false,
+          f: () {
+            Get.back();
+          });
     }
   }
 }

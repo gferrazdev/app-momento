@@ -24,7 +24,7 @@ class _CadadastrarBiometriaButtonEnviarState
   Widget build(BuildContext context) {
     return Obx(
       () => controller.carregando.value
-          ? SharedWidgets.progressIndicator('Carregando')
+          ? SharedWidgets.progressIndicator('Enviando...')
           : Align(
               child: SizedBox(
                 width: 900.w,
