@@ -3,20 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:momento/src/core/theme/theme_colors.dart';
 import 'package:momento/src/core/theme/theme_text_styles.dart';
-import 'package:momento/src/modules/cadastrar_biometria/cadastrar_biometria_controller.dart';
+import 'package:momento/src/modules/consulta_elegibilidade/consulta_elegibilidade_controller.dart';
 import 'package:validatorless/validatorless.dart';
 
-class CadastrarBiometriaTextCarteirinha extends StatefulWidget {
-  const CadastrarBiometriaTextCarteirinha({super.key});
+class ConsultaElegibilidadeTextCarteirinha extends StatefulWidget {
+  const ConsultaElegibilidadeTextCarteirinha({super.key});
 
   @override
-  State<CadastrarBiometriaTextCarteirinha> createState() =>
-      _CadastrarBiometriaTextCarteirinhaState();
+  State<ConsultaElegibilidadeTextCarteirinha> createState() =>
+      _ConsultaElegibilidadeTextCarteirinhaState();
 }
 
-class _CadastrarBiometriaTextCarteirinhaState
-    extends State<CadastrarBiometriaTextCarteirinha> {
-  final controller = Get.find<CadastrarBiometriaController>();
+class _ConsultaElegibilidadeTextCarteirinhaState
+    extends State<ConsultaElegibilidadeTextCarteirinha> {
+  final controller = Get.find<ConsultaElegibilidadeController>();
   @override
   Widget build(BuildContext context) {
     return Obx(() => Align(
@@ -30,8 +30,8 @@ class _CadastrarBiometriaTextCarteirinhaState
               keyboardType: TextInputType.text,
               validator: Validatorless.multiple(
                 [
-                  Validatorless.min(17,'Carteirinha deve ter 17 caracteres'),
-                  Validatorless.max(17,'Carteirinha deve ter 17 caracteres'),
+                  Validatorless.min(17, 'Carteirinha deve ter 17 caracteres'),
+                  Validatorless.max(17, 'Carteirinha deve ter 17 caracteres'),
                   Validatorless.required('A carteirinha é obrigatória'),
                 ],
               ),

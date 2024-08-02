@@ -46,7 +46,7 @@ class _CardPrestadorState extends State<CardPrestador> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: 45.w),
-                          child: Text('Nome Fantasia do Prestador',
+                          child: Text('NOME DO PRESTADOR',
                               style: ThemeTextStyles.getWhite50BoldStyle),
                         ),
                         SizedBox(
@@ -54,7 +54,7 @@ class _CardPrestadorState extends State<CardPrestador> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 45.w),
-                          child: Text('Especialidade',
+                          child: Text('CÓDIGO',
                               style: ThemeTextStyles.getWhite40BoldStyle),
                         ),
                         SizedBox(
@@ -62,18 +62,13 @@ class _CardPrestadorState extends State<CardPrestador> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 45.w),
-                          child: Text('Área de Atuação',
+                          child: Text('CNPJ',
                               style: ThemeTextStyles.getWhite40BoldStyle),
                         ),
                         SizedBox(
                           height: 45.h,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 45.w),
-                          child: Text(
-                              'Validação do GPS: Dentro da área de cobertura',
-                              style: ThemeTextStyles.getWhite40BoldStyle),
-                        ),
+                        ),                 
+                        
                       ],
                     ),
                   ),

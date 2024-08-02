@@ -1,21 +1,23 @@
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:momento/src/core/app/app_routes.dart';
-import 'package:momento/src/core/controllers/api_controller.dart';
 import 'package:momento/src/core/controllers/gps_controller.dart';
 import 'package:momento/src/core/ui/helpers/messages.dart';
-import 'package:momento/src/models/user_login_model.dart';
-import 'package:momento/src/modules/login/login_service.dart';
+import 'package:momento/src/modules/consulta_elegibilidade/consulta_elegibilidade_service.dart';
 
-class LoginController extends GetxController {
-  final LoginService loginService;
+class ConsultaElegibilidadeController extends GetxController {
+  final ConsultaElegibilidadeService consultaElegibilidadeService;
   final GPSController gpsController;
-  LoginController({required this.loginService, required this.gpsController});
+  ConsultaElegibilidadeController(
+      {required this.gpsController,
+      required this.consultaElegibilidadeService});
+
+  var carregando = false.obs;
 
   var formKey = GlobalKey<FormState>().obs;
-  var userNameController = TextEditingController().obs;
-  var passwordController = TextEditingController().obs;
-  var carregando = false.obs;
+  var carteirinhaController = TextEditingController().obs;
 
   @override
   void onInit() {
@@ -27,39 +29,39 @@ class LoginController extends GetxController {
     await gpsController.obterCoordenadas();
   }
 
-  void login() async {
+  Uint8List imageFromBase64String(String base64String) {
+    return base64Decode(base64String);
+  }
+
+  Future<void> consultarElegibilidade() async {
     if (gpsController.latitude.value != 0.0 &&
         gpsController.longitude.value != 0.0) {
       carregando.value = true;
-      UserLogin userLogin = UserLogin(
-        username: userNameController.value.text,
-        password: passwordController.value.text,
-      );
+      Map<String, dynamic> retorno = {};
       try {
-        Map<String, dynamic> retorno = {};
-        retorno = await loginService.autenticar(
-            userLogin: userLogin,
+        retorno = await consultaElegibilidadeService.consultaElegibillidade(
+            carteira: carteirinhaController.value.text,
             latitude: gpsController.latitude.value.toString(),
             longitude: gpsController.longitude.value.toString());
-        carregando.value = false;
-        if (retorno.containsKey('token')) {
-          final apiController = Get.find<APIController>();
-          debugPrint('token: ${retorno['token']}');
-          apiController.token.value = retorno['token'];
-          Get.offAndToNamed(AppRoutes.HOME);
-        } else {
+        debugPrint(retorno.toString());
+        if (retorno['status'] == 'error') {
           Messages.alertarAguardandoOK(
-              title: 'Falha na Autenticação',
-              content: retorno['message'],
+              title: retorno['message'],
+              content: retorno['dados']['glosa'],
               success: false,
               f: () {
                 Get.back();
               });
+        } else {
+          Get.toNamed(AppRoutes.CADASTRAR_BIOMETRIA, arguments: {
+            'carteira': carteirinhaController.value.text,
+            'nomeBenef': retorno['dados']['nomeBeneficiario']
+          });
         }
-        debugPrint(retorno.toString());
+        carregando.value = false;
       } catch (e) {
         Messages.alertarAguardandoOK(
-            title: 'Erro ao autenticar.',
+            title: 'Erro ao consultar elegibilidade',
             content: e.toString(),
             success: false,
             f: () {

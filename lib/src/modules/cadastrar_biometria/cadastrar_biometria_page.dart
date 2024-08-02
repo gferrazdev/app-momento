@@ -5,13 +5,11 @@ import 'package:momento/src/core/theme/theme_colors.dart';
 import 'package:momento/src/core/theme/theme_text_styles.dart';
 import 'package:momento/src/modules/cadastrar_biometria/cadastrar_biometria_controller.dart';
 import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_button_capturar.dart';
-import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_button_capturar_doc.dart';
 import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_button_capturar_doc_face.dart';
 import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_button_enviar.dart';
-import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_image_carteirinha.dart';
 import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_image_doc_face.dart';
-import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_text_carteirinha.dart';
 import 'package:momento/src/modules/cadastrar_biometria/components/cad_bio_image_benef.dart';
+import 'package:momento/src/modules/cadastrar_biometria/components/card_benef.dart';
 
 class CadastrarBiometriaPage extends StatefulWidget {
   const CadastrarBiometriaPage({super.key});
@@ -32,6 +30,7 @@ class _CadastrarBiometriaPageState extends State<CadastrarBiometriaPage> {
             'Cadastrar Biometria Facial',
             style: ThemeTextStyles.getWhite45BoldStyle,
           ),
+          centerTitle: true,
           leading: IconButton(
             onPressed: () {
               Get.back();
@@ -42,38 +41,27 @@ class _CadastrarBiometriaPageState extends State<CadastrarBiometriaPage> {
           backgroundColor: ThemeColors.roxoPadrao,
         ),
         body: Obx(
-          () => Form(
-            key: controller.formKey.value,
-            child: ListView(
-              children: [
-                SizedBox(height: 50.h),
-                const CadastrarBiometriaTextCarteirinha(),
-                SizedBox(height: 30.h),
-                const CadadastrarBiometriaButtonCapturar(),
-                 SizedBox(height: 30.h),
-                controller.base64Image.value.isEmpty
-                    ? Container()
-                    : CadastroBiometricoImageBenef(
-                        base64String: controller.base64Image.value),
-                SizedBox(height: 30.h),
-                const CadadastrarBiometriaButtonCapturarDoc(),
-                SizedBox(height: 30.h),
-                controller.base64ImageDoc.value.isEmpty
-                    ? Container()
-                    : CadastroBiometricoImageCarteirinha(
-                        base64String: controller.base64ImageDoc.value),
-                SizedBox(height: 30.h),
-                const CadadastrarBiometriaButtonCapturarDocFace(),
-                SizedBox(height: 30.h),
-                controller.base64ImageDocFace.value.isEmpty
-                    ? Container()
-                    : CadastroBiometricoImageDocFace(
-                        base64String: controller.base64ImageDocFace.value),
-                SizedBox(height: 30.h),
-                const CadadastrarBiometriaButtonEnviar(),
-                SizedBox(height: 100.h),
-              ],
-            ),
+          () => ListView(
+            children: [
+              const CardBenef(),
+              SizedBox(height: 80.h),
+              const CadadastrarBiometriaButtonCapturar(),
+              SizedBox(height: 30.h),
+              controller.base64Image.value.isEmpty
+                  ? Container()
+                  : CadastroBiometricoImageBenef(
+                      base64String: controller.base64Image.value),
+              SizedBox(height: 30.h),
+              const CadadastrarBiometriaButtonCapturarDocFace(),
+              SizedBox(height: 30.h),
+              controller.base64ImageDocFace.value.isEmpty
+                  ? Container()
+                  : CadastroBiometricoImageDocFace(
+                      base64String: controller.base64ImageDocFace.value),
+              SizedBox(height: 30.h),
+              const CadadastrarBiometriaButtonEnviar(),
+              SizedBox(height: 100.h),
+            ],
           ),
         ),
       ),

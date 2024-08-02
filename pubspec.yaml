@@ -37,6 +37,7 @@ dependencies:
   cookie_jar:
   flutter_screenutil: ^5.9.3
   flutter_dotenv:
+  hive:
   path_provider:
   url_launcher:
   validatorless:

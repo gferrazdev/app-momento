@@ -20,7 +20,7 @@ class _ButtonCadastrarBiometriaState extends State<ButtonCadastrarBiometria> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoutes.CADASTRAR_BIOMETRIA);
+        Get.toNamed(AppRoutes.VERIFICAR_ELEGIBILIDADE);
       },
       child: Column(
         children: [
