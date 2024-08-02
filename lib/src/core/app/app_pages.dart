@@ -7,6 +7,8 @@ import 'package:momento/src/modules/home/home_bindings.dart';
 import 'package:momento/src/modules/home/home_page.dart';
 import 'package:momento/src/modules/login/login_bindings.dart';
 import 'package:momento/src/modules/login/login_page.dart';
+import 'package:momento/src/modules/settings/settings_bindings.dart';
+import 'package:momento/src/modules/settings/settings_page.dart';
 import 'package:momento/src/modules/validar_biometria/validar_biometria_bindings.dart';
 import 'package:momento/src/modules/validar_biometria/validar_biometria_page.dart';
 import 'app_routes.dart';
@@ -17,6 +19,11 @@ class AppPages {
       name: AppRoutes.LOGIN,
       page: () => const LoginPage(),
       binding: LoginBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.SETTINGS,
+      page: () => const SettingsPage(),
+      binding: SettingsBindings(),
     ),
     GetPage(
       name: AppRoutes.HOME,
