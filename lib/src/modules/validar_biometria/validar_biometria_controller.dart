@@ -19,6 +19,7 @@ class ValidarBiometriaController extends GetxController {
   var formKey = GlobalKey<FormState>().obs;
   var solicitacaoController = TextEditingController().obs;
   var cdSolicitacao = ''.obs;
+  var tipoSolicitacao = 0.obs;
   var base64Image = ''.obs;
 
   @override
@@ -45,6 +46,7 @@ class ValidarBiometriaController extends GetxController {
           retorno = await validarBiometriaService.validarBiometria(
               foto: base64Image.value,
               solicitacao: solicitacaoController.value.text,
+              tipoSolicitacao: tipoSolicitacao.value,
               latitude: gpsController.latitude.value.toString(),
               longitude: gpsController.longitude.value.toString());
           if (retorno['status'] == 'error') {

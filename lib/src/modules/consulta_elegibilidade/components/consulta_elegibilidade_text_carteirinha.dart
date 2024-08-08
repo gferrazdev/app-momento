@@ -27,11 +27,12 @@ class _ConsultaElegibilidadeTextCarteirinhaState
               controller: controller.carteirinhaController.value,
               textAlign: TextAlign.start,
               style: ThemeTextStyles.getBlack45Style,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
               validator: Validatorless.multiple(
                 [
                   Validatorless.min(17, 'Carteirinha deve ter 17 caracteres'),
                   Validatorless.max(17, 'Carteirinha deve ter 17 caracteres'),
+                  Validatorless.number('Somente números são permitidos'),	
                   Validatorless.required('A carteirinha é obrigatória'),
                 ],
               ),

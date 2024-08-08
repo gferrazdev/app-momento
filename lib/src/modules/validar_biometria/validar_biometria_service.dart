@@ -12,6 +12,7 @@ class ValidarBiometriaService {
   Future<Map<String, dynamic>> validarBiometria(
       {required String foto,
       required String solicitacao,
+      required int tipoSolicitacao,
       required String latitude,
       required String longitude}) async {
     final apiController = getx.Get.find<APIController>();
@@ -20,6 +21,7 @@ class ValidarBiometriaService {
     Map<String, dynamic> retorno = {};
     Map<String, dynamic> mapEnvio = {};
     mapEnvio['cdSolicitacao'] = solicitacao;
+    mapEnvio['tipoSolicitacao'] = tipoSolicitacao;
     mapEnvio['fotoBase64'] = foto;
     mapEnvio['latitude'] = latitude;
     mapEnvio['longitude'] = longitude;
