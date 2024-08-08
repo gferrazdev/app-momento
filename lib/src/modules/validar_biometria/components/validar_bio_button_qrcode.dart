@@ -48,6 +48,8 @@ class _ValidarBiometriaButtonQRCodeState
                     retorno = jsonDecode(qrCode);
                     controller.cdSolicitacao.value = retorno['cdSolicitacao'];  
                     controller.solicitacaoController.value.text = retorno['cdSolicitacao'];  
+                    controller.tipoSolicitacao.value = retorno['tipoSolicitacao'];
+                   
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
